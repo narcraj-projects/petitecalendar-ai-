@@ -1,4 +1,4 @@
-# PetiteCalendar – Codex hand-off kit
+# PetCalendar AI
 
 The current direction is Python, Supabase and agentic AI, implemented and reviewed one functionality at a time. See [Architecture](docs/ARCHITECTURE.md), [Implementation plan](docs/IMPLEMENTATION_PLAN.md) and [Design adaptation](docs/DESIGN_ADAPTATION.md). The original ZIP is preserved. Its technology instructions are superseded by AGENTS.md; docs/SPEC.md was not included.
 
@@ -100,7 +100,7 @@ docs/design/screenshots/  <- OPTIONAL: PNG exports of each screen from the canva
 ```
 
 Steps
-1. Export the spec doc: open "PetiteCalendar – Product & Technical Design Spec", click the doc's name → Export → Markdown. Rename to `SPEC.md` and put it in `docs/`.
+1. Export the spec doc: open "PetCalendar AI – Product & Technical Design Spec", click the doc's name → Export → Markdown. Rename to `SPEC.md` and put it in `docs/`.
 2. (Optional, recommended) Export each screen from the design canvas as PNG into `docs/design/screenshots/`. Codex follows a picture better than markup alone, and you can attach the PNG to a prompt.
 3. Push the folder to a GitHub repo (for Codex in ChatGPT / cloud) or open it locally (for Codex CLI or the IDE extension).
 4. Paste the prompts from `CODEX_PROMPTS.md` one at a time. Review, run and commit after each.
