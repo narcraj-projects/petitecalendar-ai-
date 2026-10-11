@@ -1,6 +1,6 @@
-# PetCalendar AI low level implementation design
+# PetiteCalendar-ai low level implementation design
 
-Version 1.1, 11 October 2026. This document maps the current code to the [functional specification](SPEC.md) and [high-level design](HIGH_LEVEL_DESIGN.md). The diagrams describe implemented relationships and control flow; they do not add future payment, team or reminder services.
+Version 1.2, 11 October 2026. This document maps the current code to the [functional specification](SPEC.md) and [high-level design](HIGH_LEVEL_DESIGN.md). The diagrams describe implemented relationships and control flow; they do not add future payment, team or reminder services.
 
 ## Module responsibilities
 

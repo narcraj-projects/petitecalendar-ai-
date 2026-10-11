@@ -239,7 +239,7 @@ export default function Integrations({
               ))}
               <p>
                 Your destination calendar is always included in busy checks.
-                Caps count PetCalendar AI bookings; external busy periods
+                Caps count PetiteCalendar-ai bookings; external busy periods
                 protect time.
               </p>
               <label htmlFor="calendar-destination">
@@ -286,7 +286,7 @@ export default function Integrations({
               <h2>Disconnect calendar access</h2>
               <p>
                 This stops future calendar checks and delivery. Existing Google
-                events and PetCalendar AI reservations remain saved.
+                events and PetiteCalendar-ai reservations remain saved.
               </p>
               <button
                 className="event-secondary"

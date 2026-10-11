@@ -1,12 +1,12 @@
-# PetCalendar AI high level system design
+# PetiteCalendar-ai high level system design
 
-Version 1.1, 11 October 2026. This is the current system design for the functionality in [the specification](SPEC.md). The existing Railway environment is open for a user-approved public weekend release. The optional staging gate is disabled; host and booking authorization remain active. Google OAuth is still in Testing. Future integrations from the original kit are excluded from these diagrams.
+Version 1.2, 11 October 2026. This is the current system design for the functionality in [the specification](SPEC.md). The existing Railway environment is open for a user-approved public weekend release. The optional staging gate is disabled; host and booking authorization remain active. Google OAuth is still in Testing. Future integrations from the original kit are excluded from these diagrams.
 
 ## System context
 
 ```mermaid
 flowchart LR
-    Host[Host] --> App[PetCalendar AI]
+    Host[Host] --> App[PetiteCalendar-ai]
     Invitee[Invitee] --> App
     Operator[Operator] --> App
     App -->|Identity verification| Auth[Supabase Auth]

@@ -1,4 +1,4 @@
-# PetCalendar AI design system – "Midnight"
+# PetiteCalendar-ai design system – "Midnight"
 
 Dark-first, high-contrast, product-led. One loud colour (lime) for the main action; amber means "protection"
 (Focus Guard, cancellation policy). Everything else is quiet greys.

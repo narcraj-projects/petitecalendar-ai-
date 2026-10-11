@@ -1,4 +1,4 @@
-# PetCalendar AI public weekend release
+# PetiteCalendar-ai public weekend release
 
 On 11 October 2026 the user confirmed receipt of a booking email after configuring the verified `petcalendar-ai.ink` sender, then explicitly approved removing the Railway staging password gate for the website, public booking pages and AI assistant.
 

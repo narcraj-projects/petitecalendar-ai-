@@ -25,7 +25,7 @@ from app.services.availability import public_slots
 from app.services.calendar import get_calendar_service
 from app.staging import StagingAccessMiddleware
 
-app = FastAPI(title="PetCalendar AI", version="0.1.0")
+app = FastAPI(title="PetiteCalendar-ai", version="0.1.0")
 app.add_middleware(StagingAccessMiddleware)
 app.include_router(hosts_router)
 app.include_router(events_router)

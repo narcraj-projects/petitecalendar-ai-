@@ -70,7 +70,7 @@ function PublishedEventContent() {
       <header>
         <a className="event-brand" href="/login">
           <CalendarDays size={24} />
-          PetCalendar AI
+          PetiteCalendar-ai
         </a>
         <span>Event details</span>
       </header>

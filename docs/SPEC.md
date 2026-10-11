@@ -1,10 +1,10 @@
-# PetCalendar AI functional specification
+# PetiteCalendar-ai functional specification
 
-Version 1.1, 11 October 2026. This specification describes the implemented application and its agreed weekend-project scope. It was derived from the current code and feature reviews; it is not the missing specification referenced by the original design kit.
+Version 1.2, 11 October 2026. This specification describes the implemented application and its agreed weekend-project scope. It was derived from the current code and feature reviews; it is not the missing specification referenced by the original design kit.
 
 ## Purpose and users
 
-PetCalendar AI lets a host publish meeting links, protect working and focus hours, and accept bookings without exchanging availability messages. Invitees select a duration and time in their current timezone, review the meeting, and receive a private management link. An optional AI assistant helps find times and draft changes using the same scheduling rules as the manual interface.
+PetiteCalendar-ai lets a host publish meeting links, protect working and focus hours, and accept bookings without exchanging availability messages. Invitees select a duration and time in their current timezone, review the meeting, and receive a private management link. An optional AI assistant helps find times and draft changes using the same scheduling rules as the manual interface.
 
 | Actor | Capabilities |
 | --- | --- |

@@ -276,7 +276,7 @@ export default function App() {
         <a
           className="brand"
           href="/ananya/career-strategy"
-          aria-label="PetCalendar AI home"
+          aria-label="PetiteCalendar-ai home"
         >
           <span className="brand-icon">
             <CalendarDays size={19} />
@@ -597,12 +597,12 @@ export default function App() {
           <span>
             <Check size={15} /> Time zones handled. Focus time respected.
           </span>
-          <span>Thoughtfully scheduled, with PetCalendar AI.</span>
+          <span>Thoughtfully scheduled, with PetiteCalendar-ai.</span>
         </div>
       </main>
       <footer>
         <span>LESS BACK-AND-FORTH. MORE GOOD CONVERSATIONS.</span>
-        <span>PetCalendar AI</span>
+        <span>PetiteCalendar-ai</span>
       </footer>
       {review && selected && (
         <div className="review-backdrop" onClick={() => setReview(false)}>

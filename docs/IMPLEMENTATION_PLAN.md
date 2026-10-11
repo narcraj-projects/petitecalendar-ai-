@@ -1,4 +1,4 @@
-# PetCalendar AI implementation plan
+# PetiteCalendar-ai implementation plan
 
 Build one functionality, verify and demonstrate it, then stop for user review before advancing. Use the Python, Supabase and agent architecture in [ARCHITECTURE.md](ARCHITECTURE.md), and the Midnight adaptations in [DESIGN_ADAPTATION.md](DESIGN_ADAPTATION.md). Changes requested during review stay within the current functionality.
 
@@ -84,7 +84,7 @@ Introduce only the profile migration in Step 2 because persistence is necessary 
 
 ## Step 6 implementation scope
 
-Step 6 is built, tested and live-verified after the user completed the review booking flow on 11 October 2026. Separate Google consent, encrypted host-bound refresh tokens, selected blocking calendars, a writable destination and optional Meet are implemented. The destination always blocks time. Caps count PetCalendar AI bookings; external free/busy protects availability. Provider failure stops connected-host slot generation and reservations.
+Step 6 is built, tested and live-verified after the user completed the review booking flow on 11 October 2026. Separate Google consent, encrypted host-bound refresh tokens, selected blocking calendars, a writable destination and optional Meet are implemented. The destination always blocks time. Caps count PetiteCalendar-ai bookings; external free/busy protects availability. Provider failure stops connected-host slot generation and reservations.
 
 A confirmed booking and pinned calendar job commit atomically after host lock and connection revision checks. A separate Python worker uses leases, bounded retries, deterministic event/Meet request IDs and saved Google account generation. Status and Meet links appear on host dashboard and private confirmation. Existing bookings are not backfilled; Google guest invitations are not sent. Read [Step 6 review](reviews/06-google-calendar.md) and complete actual Google consent/event acceptance before Step 7.
 
@@ -106,6 +106,8 @@ Use deterministic provider doubles, real PostgreSQL confirmation/isolation check
 The user's Step 9 feedback requested fewer clarification questions and automatic contact entry. The refinement uses known page context and a seven-day default search, prefills the signed-in invitee's own verified contact, and retains guest edits while changing times. Contact lookup remains outside AI context. This is part of the current review; deployment still waits for acceptance.
 
 ## Application name and GitHub handoff
+
+The user subsequently selected **PetiteCalendar-ai** as the visible application and documentation title. This display-only change preserves repository/package names, provider configuration, URLs, database roles, Google private markers and calendar UIDs. The frontend production build, 14 invitation tests and three guest-entry/sharing browser checks passed after the change. Existing sender settings and previously queued messages retain their configured values.
 
 On 11 October 2026 the user named the application **PetCalendar AI**, with **petcalendar-ai** as the GitHub repository name. UI labels, browser title, API metadata, model instructions, calendar product label and package names reflect the new name. Existing database roles, Google private markers and stable calendar UIDs keep their original internal identifiers to preserve existing bookings and connected calendars. The user moved the original ZIP and draw.io workflow into an external backup. Git ignores those formats, credentials, local tooling and review screenshots. The refined Step 9 review was accepted; GitHub handoff precedes deployment.
 

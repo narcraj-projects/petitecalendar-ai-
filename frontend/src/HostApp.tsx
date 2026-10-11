@@ -269,7 +269,7 @@ export default function HostApp() {
     <div className="host-shell">
       <header className="host-header">
         <a href="/ananya/career-strategy" className="host-brand">
-          <CalendarDays size={24} /> PetCalendar AI
+          <CalendarDays size={24} /> PetiteCalendar-ai
         </a>
         <a href="/ananya/career-strategy">
           Availability demo <ArrowRight size={16} />
@@ -308,7 +308,7 @@ export default function HostApp() {
             </p>
           ) : login ? (
             <>
-              <span className="host-eyebrow">WELCOME TO PETCALENDAR AI</span>
+              <span className="host-eyebrow">WELCOME TO PetiteCalendar-ai</span>
               <h2>Sign in as a host</h2>
               <p>Use Google or get a secure link by email.</p>
               <button

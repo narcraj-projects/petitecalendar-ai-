@@ -115,7 +115,7 @@ export default function BookingConfirmation() {
       <header>
         <a className="event-brand" href="/login">
           <CalendarDays size={24} />
-          PetCalendar AI
+          PetiteCalendar-ai
         </a>
         <span>Private booking</span>
       </header>

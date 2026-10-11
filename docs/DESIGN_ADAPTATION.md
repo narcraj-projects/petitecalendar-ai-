@@ -1,4 +1,4 @@
-# PetCalendar AI design adaptation
+# PetiteCalendar-ai design adaptation
 
 Preserve Midnight's dark surfaces, lime primary actions, amber protection cues, Space Grotesk headings and Manrope body text. Add conversational assistance while keeping dates, both timezones, duration, price and policies visible. The original screens remain the visual baseline.
 

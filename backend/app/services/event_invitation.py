@@ -30,12 +30,12 @@ def invitation_payload(profile, event, recipient, settings):
         f"Choose a time: {link}\n\n"
         "No account needed. Enter your own name and email when you book. "
         "This invitation has not reserved a time.\n\n"
-        f"PetCalendar AI\nYou're receiving this because {host} shared this event with your address."
+        f"PetiteCalendar-ai\nYou're receiving this because {host} shared this event with your address."
     )
     body = f"""<!doctype html><html><body style="margin:0;background:#0d0f14;color:#eef0f4;font-family:Arial,sans-serif">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:32px 16px">
       <table role="presentation" width="560" cellpadding="0" cellspacing="0" style="width:100%;max-width:560px;background:#151922;border:1px solid #343a48;border-radius:20px">
-      <tr><td style="padding:32px"><p style="margin:0 0 28px;color:#c8f25c;font-size:14px;font-weight:bold;letter-spacing:1px">PETCALENDAR AI</p>
+      <tr><td style="padding:32px"><p style="margin:0 0 28px;color:#c8f25c;font-size:14px;font-weight:bold;letter-spacing:1px">PetiteCalendar-ai</p>
       <h1 style="margin:0 0 20px;font-size:28px;line-height:1.3;color:#eef0f4">A conversation worth making time for.</h1>
       <p style="font-size:16px;line-height:1.7;color:#eef0f4">Hi,<br><strong>{escape(host)}</strong> would love to find a time to connect with you.</p>
       <table role="presentation" width="100%" style="background:#1e2330;border-radius:12px"><tr><td style="padding:20px">

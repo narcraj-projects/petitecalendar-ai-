@@ -27,15 +27,15 @@ export default function Home() {
         throw new Error();
       window.location.assign(url.pathname);
     } catch {
-      setError("Paste the PetCalendar AI booking link shared by your host.");
+      setError("Paste the PetiteCalendar-ai booking link shared by your host.");
     }
   }
   return (
     <div className="home-shell">
       <header className="home-header">
-        <a className="home-brand" href="/" aria-label="PetCalendar AI home">
+        <a className="home-brand" href="/" aria-label="PetiteCalendar-ai home">
           <CalendarDays size={28} />
-          PetCalendar AI
+          PetiteCalendar-ai
         </a>
         <a className="home-signin" href="/login">
           Host sign in <ArrowRight size={18} />

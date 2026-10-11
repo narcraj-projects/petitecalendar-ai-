@@ -12,7 +12,7 @@ export default function HostNavigation({
     <nav className="events-nav" aria-label="Host navigation">
       <a className="event-brand" href="/app/event-types">
         <CalendarDays size={24} />
-        PetCalendar AI
+        PetiteCalendar-ai
       </a>
       <a
         href="/app/bookings"

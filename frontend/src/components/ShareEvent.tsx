@@ -172,7 +172,7 @@ export default function ShareEvent({
             className="share-email-preview"
             aria-label="Invitation email preview"
           >
-            <span className="event-eyebrow">PETCALENDAR AI</span>
+            <span className="event-eyebrow">PetiteCalendar-ai</span>
             <h3>A conversation worth making time for.</h3>
             <p>
               Hi,

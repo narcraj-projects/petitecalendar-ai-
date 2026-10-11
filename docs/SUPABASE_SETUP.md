@@ -30,7 +30,7 @@ Use this exact origin consistently. `localhost` and `127.0.0.1` have separate br
 Enable Email under Authentication → Sign In / Providers. Keep user signups enabled for initial onboarding. Under Authentication → Email Templates, use this link for the **Magic Link** and **Confirm Signup** templates:
 
 ```html
-<a href="{{ .SiteURL }}/auth/callback?token_hash={{ .TokenHash }}&type=email">Sign in to PetCalendar AI</a>
+<a href="{{ .SiteURL }}/auth/callback?token_hash={{ .TokenHash }}&type=email">Sign in to PetiteCalendar-ai</a>
 ```
 
 The application consumes the token hash through `verifyOtp`; Google callbacks use a PKCE code exchange. Callback parameters are immediately removed from browser history. Invalid or expired links show a retry path. See [passwordless email](https://supabase.com/docs/guides/auth/auth-email-passwordless).
@@ -40,7 +40,7 @@ For initial testing, use the email belonging to your Supabase organization. Supa
 ## Google sign-in
 
 1. Create/select a project in [Google Cloud Console](https://console.cloud.google.com/).
-2. Open Google Auth Platform. Complete Branding with PetCalendar AI and the required support/contact email.
+2. Open Google Auth Platform. Complete Branding with PetiteCalendar-ai and the required support/contact email.
 3. Set Audience to External. While testing, add your Google account under Test users.
 4. Under Data Access, include only `openid`, `userinfo.email`, and `userinfo.profile` for sign-in.
 5. Under Clients, create an OAuth client with application type Web application. Add the local app origin `http://127.0.0.1:8017` under Authorized JavaScript origins if requested.

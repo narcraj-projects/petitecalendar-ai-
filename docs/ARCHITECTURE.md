@@ -1,4 +1,4 @@
-# PetCalendar AI architecture
+# PetiteCalendar-ai architecture
 
 For the current implemented release, start with the [functional specification](SPEC.md), [high-level system diagrams](HIGH_LEVEL_DESIGN.md) and [low-level implementation design](LOW_LEVEL_DESIGN.md). This architecture document also preserves future design direction; payments, reminders, WhatsApp, Mutual Match and teams are not implemented core features. The specification was reconstructed from the code and reviews, rather than supplied with the original kit.
 
@@ -58,7 +58,7 @@ flowchart TD
     WORKER --> EXT[Calendar Meet messaging payments]
 ```
 
-The agent and conventional UI use the same services. The pure engine accepts configuration, busy intervals, bookings and an injected current time. It performs no I/O. PostgreSQL is authoritative for PetCalendar AI reservations; external calendars remain authoritative for events created elsewhere.
+The agent and conventional UI use the same services. The pure engine accepts configuration, busy intervals, bookings and an injected current time. It performs no I/O. PostgreSQL is authoritative for PetiteCalendar-ai reservations; external calendars remain authoritative for events created elsewhere.
 
 Serve the compiled frontend and API behind one origin, initially from FastAPI. Run the worker separately using the same Python package. Use separate development, staging and production Supabase projects with API and worker near the database. Choose hosting and backup settings at deployment; no services are provisioned by this proposal.
 

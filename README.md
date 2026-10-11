@@ -1,8 +1,8 @@
-# PetCalendar AI
+# PetiteCalendar-ai
 
 Hosts can share published events by email: Event types → Share by email → enter addresses → Review invitation → Send booking link. Each guest receives a separate branded invitation and books without an account. Apply migration `0009_event_invitations` before deploying; the existing worker handles delivery. Sharing limits: 10 recipients/request, 20/host/UTC day and 50/app/UTC day. Exact retries are deduplicated; provider acceptance does not guarantee inbox delivery.
 
-The application name is **PetCalendar AI**; the repository and package name is `petcalendar-ai`. Legacy internal database roles, Google event markers and calendar UIDs retain their original identifiers so existing bookings and integrations stay compatible. Design references use `petcalendar-ai.example` as a placeholder, not a registered application domain.
+The application name is **PetiteCalendar-ai**; the repository and package name is `petcalendar-ai`. Legacy internal database roles, Google event markers and calendar UIDs retain their original identifiers so existing bookings and integrations stay compatible. Design references use `petcalendar-ai.example` as a placeholder, not a registered application domain.
 
 ## Project documentation
 

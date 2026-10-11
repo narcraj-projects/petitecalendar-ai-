@@ -9,7 +9,7 @@ const HostApp = lazy(() => import("./HostApp"));
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <Suspense fallback={<p role="status">Loading PetCalendar AI…</p>}>
+    <Suspense fallback={<p role="status">Loading PetiteCalendar-ai…</p>}>
       {[
         "/login",
         "/auth/callback",
