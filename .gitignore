@@ -42,3 +42,7 @@ test-results/
 
 # Local review screenshots may contain account details.
 docs/reviews/*.png
+
+# Generated document deliverables and visual review intermediates.
+output/
+tmp/

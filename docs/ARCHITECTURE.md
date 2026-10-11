@@ -1,5 +1,7 @@
 # PetCalendar AI architecture
 
+For the current implemented release, start with the [functional specification](SPEC.md), [high-level system diagrams](HIGH_LEVEL_DESIGN.md) and [low-level implementation design](LOW_LEVEL_DESIGN.md). This architecture document also preserves future design direction; payments, reminders, WhatsApp, Mutual Match and teams are not implemented core features. The specification was reconstructed from the code and reviews, rather than supplied with the original kit.
+
 Build a Python scheduling application backed by Supabase, with an agent that turns natural-language intent into validated scheduling actions. FastAPI owns the domain rules; a Python worker performs durable external side effects. A React frontend preserves the Midnight design. Implement one functionality at a time and stop for review.
 
 The user selected Python, Supabase and agentic AI on 11 October 2026, superseding the kit's technology choices. This proposal preserves its functionality; it is not the missing Product and Technical Design Spec.

@@ -111,6 +111,8 @@ On 11 October 2026 the user named the application **PetCalendar AI**, with **pet
 
 ## Step 10: staging preparation
 
+Current release update, 11 October 2026: after verified sender configuration and user-confirmed inbox receipt, the user explicitly approved public web/booking/AI access. The Railway password gate is disabled; unauthenticated pages and slots returned 200, host APIs returned 401, an invalid private booking returned 404 and the web deployment succeeded. Google OAuth remains in Testing, so Calendar connections are limited to listed test users. Backups, monitoring and additional launch checks were deferred by the user. The homepage now opens the real application entry page; the original demo retains its separate route. See [public weekend release](PUBLIC_BETA.md). Earlier staging preparation notes below record the preceding milestone.
+
 The user accepted proceeding after the private GitHub handoff. Private Railway staging now runs separate API and durable worker services built from GitHub, with isolated Supabase storage, migrations, restricted runtime logins, HTTPS/OAuth origins and an encrypted access gate. Container and backend checks passed. Google login/onboarding, live availability, saved Calendar connection, a confirmed booking, Meet and earlier-revision event cleanup were observed. Resend accepted the booking emails; inbox receipt is not independently verified. The user confirmed the dedicated OpenAI key/project and enforced USD 3 limit; hosted AI is enabled and a live search returned eight slots. Private staging is ready for user review; production acceptance, restoration and monitoring remain separate. See [Step 10 review](reviews/10-private-staging.md) and [staging setup](STAGING_SETUP.md).
 
 ### Step 10 spending constraint

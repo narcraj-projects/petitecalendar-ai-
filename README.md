@@ -2,6 +2,14 @@
 
 The application name is **PetCalendar AI**; the repository and package name is `petcalendar-ai`. Legacy internal database roles, Google event markers and calendar UIDs retain their original identifiers so existing bookings and integrations stay compatible. Design references use `petcalendar-ai.example` as a placeholder, not a registered application domain.
 
+## Project documentation
+
+- [Functional specification](docs/SPEC.md): users, implemented behavior, acceptance criteria and deferred scope.
+- [High-level system design](docs/HIGH_LEVEL_DESIGN.md): system context, runtime components and deployment diagrams.
+- [Low-level implementation design](docs/LOW_LEVEL_DESIGN.md): modules, API contracts, data relationships, booking/AI sequences and delivery states.
+
+These documents describe the current implementation. The specification was reconstructed from the application and reviews; the original kit's referenced specification was not supplied. Mermaid diagrams render on GitHub and remain editable in the Markdown files. The purchased `petcalendar-ai.ink` domain is verified in Resend and configured as the application sender. See [public weekend release](docs/PUBLIC_BETA.md) for the hosted URL, access scope and remaining Google Testing restrictions.
+
 The current direction is Python, Supabase and agentic AI, implemented and reviewed one functionality at a time. See [Architecture](docs/ARCHITECTURE.md), [Implementation plan](docs/IMPLEMENTATION_PLAN.md) and [Design adaptation](docs/DESIGN_ADAPTATION.md). The original ZIP is preserved. Its technology instructions are superseded by AGENTS.md; docs/SPEC.md was not included.
 
 ## Scheduling assistant (Step 9)

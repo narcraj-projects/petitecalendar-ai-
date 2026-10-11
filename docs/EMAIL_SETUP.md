@@ -17,7 +17,11 @@ The test sender can send only to the email address associated with your Resend a
 
 Do not share the API key in chat or commit `.env`. Retain TOKEN_ENCRYPTION_KEY across restarts; it encrypts queued private booking links and message payloads. Keep email click/open tracking disabled for private capability links.
 
-## Run
+## Verified application sender
+
+On 11 October 2026 the user confirmed Resend verification of the purchased `petcalendar-ai.ink` domain. The local development/staging configuration and Railway web/worker `EMAIL_FROM` settings now use `PetCalendar AI <bookings@petcalendar-ai.ink>`. Resend remains on its free plan. Verify a newly created booking reaches the invitee's actual inbox; this configuration update alone does not establish inbox delivery. Already-frozen email payloads retain their original sender, and accepted historical messages are not resent automatically.
+
+## Run the worker
 
 Apply `uv run alembic upgrade head`, rebuild the frontend and restart the API. In a separate terminal at the repository root:
 

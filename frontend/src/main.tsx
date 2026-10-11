@@ -1,6 +1,7 @@
 import { StrictMode, Suspense, lazy } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
+import Home from "./Home";
 import PublishedEvent from "./PublishedEvent";
 import BookingConfirmation from "./BookingConfirmation";
 import "./styles.css";
@@ -23,8 +24,9 @@ createRoot(document.getElementById("root")!).render(
         <HostApp />
       ) : window.location.pathname.startsWith("/booking/") ? (
         <BookingConfirmation />
-      ) : window.location.pathname === "/" ||
-        window.location.pathname === "/ananya/career-strategy" ? (
+      ) : window.location.pathname === "/" ? (
+        <Home />
+      ) : window.location.pathname === "/ananya/career-strategy" ? (
         <App />
       ) : (
         <PublishedEvent />
