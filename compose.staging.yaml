@@ -17,7 +17,11 @@ services:
       - ALL
   worker:
     image: petcalendar-ai:staging
-    env_file: .env.staging
+    env_file:
+      - .env.staging
+      - .env.staging.worker
+    environment:
+      AI_ENABLED: "false"
     command: ["python", "-m", "app.worker"]
     healthcheck:
       disable: true
