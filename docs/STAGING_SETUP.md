@@ -35,3 +35,7 @@ Use a synthetic host and the authorized test recipient. Verify sign-in/onboardin
 Back up staging and demonstrate restoration into a disposable project before production. Keep the previous image digest/commit for application rollback. Database rollback needs its own reviewed migration plan; do not blindly downgrade populated schemas. Stop delivery workers before restoring a database so restored jobs do not replay real provider effects.
 
 Production is a separate decision. Shared request limits, least-privilege runtime credentials, verified email sending, backup restoration, monitoring and measured model cost/reliability remain release requirements.
+
+## Preparation verification
+
+Compose configuration validation passed against the blank environment example, and `uv lock --check --offline` passed. The [GitHub container check](https://github.com/narcraj-projects/petcalendar-ai/actions/runs/38142949745) passed for commit `3ac5e02`: locked Linux image build, worker imports, non-root web startup, health endpoint and SPA response. Docker Desktop was unavailable locally. This does not verify real staging authentication, database migrations, Google/Resend delivery, private ingress or backup restore; those require the hosted environment.
