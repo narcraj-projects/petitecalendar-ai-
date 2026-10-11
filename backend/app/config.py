@@ -19,6 +19,7 @@ class Settings:
     app_base_url: str = "http://127.0.0.1:8017"
     resend_api_key: str = ""
     email_from: str = ""
+    ai_enabled: bool = False
     openai_api_key: str = ""
     openai_model: str = "gpt-6-astra"
 
@@ -58,6 +59,7 @@ def get_settings() -> Settings:
         app_base_url=os.getenv("APP_BASE_URL", "http://127.0.0.1:8017").strip().rstrip("/"),
         resend_api_key=os.getenv("RESEND_API_KEY", "").strip(),
         email_from=os.getenv("EMAIL_FROM", "").strip(),
+        ai_enabled=os.getenv("AI_ENABLED", "false").strip().lower() == "true",
         openai_api_key=os.getenv("OPENAI_API_KEY", "").strip(),
         openai_model=os.getenv("OPENAI_MODEL", "gpt-6-astra").strip(),
     )

@@ -38,3 +38,7 @@
 
 ## Commands
 - Exact development and check commands are established in README.md by each functionality. Old pnpm and Drizzle commands do not apply.
+
+## Monthly spending authorization
+
+The user authorized at most **USD 20 per month total for PetCalendar AI** on 11 October 2026. Treat this as including taxes and fees; leave a buffer below the total. Require explicit user approval before raising any provider cutoff, adding a paid service, upgrading a plan, enabling recharge or authorizing more spend. Prefer interruption of AI/hosting over exceeding the allowance. Supabase and Resend remain on free plans. Before online services start, verify Railway workspace compute cutoff and a dedicated OpenAI project enforced cutoff. A shared key from another application does not isolate costs. Provider enforcement can lag; do not promise an absolute billing guarantee. AI defaults off until account controls are verified.

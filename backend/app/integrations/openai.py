@@ -46,6 +46,12 @@ class OpenAIScheduler:
     def interpret(self, messages, context, tools):
         started = monotonic()
         self.last_metrics = {}
+        if not self.settings.ai_enabled:
+            raise failure(
+                503,
+                "AI_DISABLED",
+                "The assistant is paused. Use the calendar or manual settings.",
+            )
         if not self.settings.openai_api_key:
             raise failure(
                 503,
@@ -112,6 +118,16 @@ class OpenAIScheduler:
                     )
             if response.status_code != 200:
                 error = response.json().get("error", {})
+                if error.get("code") in {
+                    "organization_spend_limit_exceeded",
+                    "project_spend_limit_exceeded",
+                }:
+                    raise failure(
+                        503,
+                        "AI_SPEND_LIMIT",
+                        "The assistant spending limit was reached. "
+                        "Use the calendar or manual settings.",
+                    )
                 if error.get("type") == "insufficient_quota":
                     raise failure(
                         503,

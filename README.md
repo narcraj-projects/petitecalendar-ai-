@@ -122,3 +122,5 @@ Stop the live delivery worker before all six opt-in PostgreSQL checks: set `$env
 ## Staging deployment preparation
 
 Container build and separate web/worker definitions are in `Dockerfile` and `compose.staging.yaml`. See [staging setup](docs/STAGING_SETUP.md) for isolated credentials, OAuth redirects, private access and acceptance. No online service has been provisioned.
+
+AI is paused by default (`AI_ENABLED=false`) until a dedicated OpenAI project enforced spending limit is verified. The approved combined app allowance is USD 20/month; see [monthly spending setup](docs/STAGING_SETUP.md#approved-monthly-spending-boundary).

@@ -26,7 +26,7 @@ from starlette.exceptions import HTTPException
 
 ACTOR, OTHER, EVENT = uuid4(), uuid4(), uuid4()
 KEY = Fernet.generate_key().decode()
-SETTINGS = Settings(openai_api_key="synthetic-key", token_encryption_key=KEY)
+SETTINGS = Settings(openai_api_key="synthetic-key", token_encryption_key=KEY, ai_enabled=True)
 
 
 @pytest.fixture(autouse=True)
@@ -499,3 +499,30 @@ def test_api_resolves_and_closes_generator_calendar_dependency(monkeypatch):
     assert response.status_code == 200
     assert response.json()["host_timezone"] == "UTC" and response.json()["slots"] == []
     assert entered == ["opened", "closed"]
+
+
+def test_disabled_assistant_makes_no_billable_provider_request():
+    calls = []
+    client = httpx.Client(transport=httpx.MockTransport(lambda r: calls.append(r)))
+    settings = Settings(openai_api_key="synthetic-key", ai_enabled=False)
+    with pytest.raises(HTTPException) as error:
+        OpenAIScheduler(settings, client).interpret(["hello"], {}, {"clarify": TOOLS["clarify"]})
+    assert error.value.detail["code"] == "AI_DISABLED"
+    assert calls == []
+
+
+@pytest.mark.parametrize(
+    "code", ["organization_spend_limit_exceeded", "project_spend_limit_exceeded"]
+)
+def test_provider_spend_limit_stops_without_retry(code):
+    calls = []
+
+    def exhausted(request):
+        calls.append(request)
+        return httpx.Response(429, json={"error": {"code": code}})
+
+    client = httpx.Client(transport=httpx.MockTransport(exhausted))
+    with pytest.raises(HTTPException) as error:
+        OpenAIScheduler(SETTINGS, client).interpret(["hello"], {}, {"clarify": TOOLS["clarify"]})
+    assert error.value.detail["code"] == "AI_SPEND_LIMIT"
+    assert len(calls) == 1

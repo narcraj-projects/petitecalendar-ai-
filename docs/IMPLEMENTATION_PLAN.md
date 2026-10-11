@@ -112,3 +112,7 @@ On 11 October 2026 the user named the application **PetCalendar AI**, with **pet
 ## Step 10: staging preparation
 
 The user accepted proceeding after the private GitHub handoff. Prepare a locked dependency container, separate API and durable worker processes, isolated staging secrets and migrations, HTTPS/OAuth origins, private ingress and an acceptance/rollback path. The user has no hosting account yet. Container build execution, hosting choice, online provisioning and live staging acceptance remain pending. Production release remains separate. See [staging setup](STAGING_SETUP.md).
+
+### Step 10 spending constraint
+
+The user authorized a combined USD 20 monthly maximum, including fees. Plan USD 10 Railway, USD 3 OpenAI, free Supabase/Resend and USD 7 reserve. Account cutoffs and a dedicated AI project must be verified before provisioning. AI defaults off with explicit provider spending-limit fallback. Do not upgrade plans or increase caps without approval; interruption is acceptable at the boundary. See the spending section in [staging setup](STAGING_SETUP.md).
