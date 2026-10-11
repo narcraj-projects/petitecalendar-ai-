@@ -24,7 +24,11 @@ jobs:
             sleep 2
           done
           curl --fail --silent http://127.0.0.1:8027/api/health
-          curl --fail --silent http://127.0.0.1:8027/ | grep 'PetCalendar AI'
+          curl --fail --silent http://127.0.0.1:8027/ --output /tmp/petcalendar-home.html
+          grep --fixed-strings --quiet '<div id="root"></div>' /tmp/petcalendar-home.html
+          asset_path="$(grep --only-matching --extended-regexp '/assets/[A-Za-z0-9_.-]+\.js' /tmp/petcalendar-home.html | head -n 1)"
+          test -n "$asset_path"
+          curl --fail --silent --output /dev/null "http://127.0.0.1:8027$asset_path"
           test "$(docker inspect -f '{{.Config.User}}' petcalendar-check)" = '10001:10001'
       - name: Container logs
         if: always()
