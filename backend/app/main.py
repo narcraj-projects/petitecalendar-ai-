@@ -15,6 +15,7 @@ from app.api.bookings import router as bookings_router
 from app.api.calendar import router as calendar_router
 from app.api.events import router as events_router
 from app.api.hosts import router as hosts_router
+from app.api.invitations import router as invitations_router
 from app.db.availability import get_schedule_repository
 from app.db.bookings import get_booking_repository
 from app.db.events import get_event_repository
@@ -32,6 +33,7 @@ app.include_router(availability_router)
 app.include_router(bookings_router)
 app.include_router(calendar_router)
 app.include_router(assistant_router)
+app.include_router(invitations_router)
 
 
 @app.middleware("http")
@@ -76,6 +78,8 @@ async def invalid_request(request: Request, exc: RequestValidationError):
         message = "Check your calendar selection and saved revision."
     if "/assistant" in request.url.path:
         message = "Check your request, timezone and selected event."
+    if "/invitations" in request.url.path:
+        message = "Enter 1-10 unique email addresses and review the published event."
     return error_response(422, "INVALID_INPUT", message)
 
 

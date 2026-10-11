@@ -5,6 +5,7 @@ import {
   ExternalLink,
   Copy,
   ArrowRight,
+  Mail,
 } from "lucide-react";
 import EventEditor, {
   blankEvent,
@@ -13,6 +14,7 @@ import EventEditor, {
 import "./events.css";
 import HostNavigation from "./components/HostNavigation";
 import AssistantPanel from "./components/AssistantPanel";
+import ShareEvent from "./components/ShareEvent";
 
 export default function EventTypes({
   profile,
@@ -29,6 +31,7 @@ export default function EventTypes({
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const [assistantTarget, setAssistantTarget] = useState("");
+  const [sharing, setSharing] = useState<EventType | null>(null);
   const requestRef = useRef(request);
   requestRef.current = request;
   async function load() {
@@ -175,6 +178,15 @@ export default function EventTypes({
                 />
               </>
             )}
+            {sharing && (
+              <ShareEvent
+                key={sharing.id}
+                event={sharing}
+                host={profile}
+                request={request}
+                onClose={() => setSharing(null)}
+              />
+            )}
             {events.length === 0 && !error ? (
               <div className="event-empty event-card">
                 <CalendarDays size={36} />
@@ -224,6 +236,13 @@ export default function EventTypes({
                             <ExternalLink size={16} />
                             View page
                           </a>
+                          <button
+                            className="event-secondary"
+                            onClick={() => setSharing(event)}
+                            aria-label={`Share ${event.title} by email`}
+                          >
+                            <Mail size={16} /> Share by email
+                          </button>
                           <button
                             className="event-secondary"
                             aria-label={`Copy link for ${event.title}`}

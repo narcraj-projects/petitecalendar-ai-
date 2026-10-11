@@ -14,6 +14,7 @@ from app.db.lifecycle import delivery_lock
 from app.db.profiles import get_engine
 from app.email_worker import EmailWorker
 from app.integrations.google import CalendarError, GoogleCalendar, TokenVault
+from app.invitation_worker import InvitationWorker
 
 
 class CalendarWorker:
@@ -197,12 +198,15 @@ def main():
     email_worker = (
         EmailWorker() if worker.settings.email_configured and not args.calendar_only else None
     )
+    invitation_worker = InvitationWorker() if email_worker else None
     try:
         while True:
             try:
                 worked = worker.run_once()
                 if email_worker:
                     worked = email_worker.run_once() or worked
+                if invitation_worker:
+                    worked = invitation_worker.run_once() or worked
             except SQLAlchemyError:
                 worked = False
                 print("Calendar worker: storage unavailable; retrying.", flush=True)
@@ -213,6 +217,8 @@ def main():
         worker.provider.close()
         if email_worker:
             email_worker.provider.close()
+        if invitation_worker:
+            invitation_worker.provider.close()
 
 
 if __name__ == "__main__":

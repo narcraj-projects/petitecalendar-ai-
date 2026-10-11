@@ -1,6 +1,6 @@
 # PetCalendar AI low level implementation design
 
-Version 1.0, 11 October 2026. This document maps the current code to the [functional specification](SPEC.md) and [high-level design](HIGH_LEVEL_DESIGN.md). The diagrams describe implemented relationships and control flow; they do not add future payment, team or reminder services.
+Version 1.1, 11 October 2026. This document maps the current code to the [functional specification](SPEC.md) and [high-level design](HIGH_LEVEL_DESIGN.md). The diagrams describe implemented relationships and control flow; they do not add future payment, team or reminder services.
 
 ## Module responsibilities
 
@@ -19,7 +19,9 @@ Version 1.0, 11 October 2026. This document maps the current code to the [functi
 | `backend/app/db/` | SQLAlchemy mappings, restricted roles, scoped reads, locks and transactional repositories |
 | `backend/app/integrations/` | Google, Resend and OpenAI adapters behind replaceable interfaces |
 | `backend/app/worker.py`, `email_worker.py` | Claim leased jobs, perform revision-aware delivery and record retry/terminal states |
-| `backend/migrations/versions/` | Eight ordered Alembic migrations for the current schema |
+| `backend/migrations/versions/` | Nine ordered Alembic migrations for the current schema |
+| `backend/app/api/invitations.py`, `db/invitations.py` | Host-scoped invitation validation, atomic queuing, exact-retry hashes and daily recipient limits |
+| `backend/app/invitation_worker.py`, `services/event_invitation.py` | Durable per-recipient sending, encrypted frozen payloads and branded HTML/plain-text email |
 | `frontend/src/` | Host pages, published events, booking management and shared assistant/form components |
 
 ```mermaid
@@ -48,6 +50,8 @@ flowchart TD
 | `GET /api/me/booking-contact` | Verified user | Own contact prefill, outside AI context |
 | `GET`, `POST /api/me/event-types` | Verified host | List and create event drafts |
 | `PUT /api/me/event-types/{event_id}` | Verified host | Revise settings and publication |
+| `POST /api/me/event-types/{event_id}/invitations` | Verified host | Queue reviewed recipients for a published event at the supplied revision |
+| `GET /api/me/event-types/{event_id}/invitations/{batch_id}` | Verified host | Own batch delivery counts; no recipient list or message ciphertext |
 | `GET`, `PUT /api/me/availability` | Verified host | Read/save shared schedule and Focus Guard |
 | `GET /api/public/events/{username}/{slug}` | Visitor | Published event metadata |
 | `GET /api/public/events/{username}/{slug}/slots` | Visitor | Valid slots for date range, duration and IANA zone |
@@ -88,6 +92,9 @@ erDiagram
     BOOKINGS ||--o{ BOOKING_OUTBOX : records
     BOOKINGS ||--o{ CALENDAR_JOBS : delivers
     BOOKINGS ||--o{ EMAIL_JOBS : notifies
+    HOST_PROFILES ||--o{ INVITATION_BATCHES : shares
+    EVENT_TYPES ||--o{ INVITATION_BATCHES : invites
+    INVITATION_BATCHES ||--o{ INVITATION_JOBS : delivers
     BOOKINGS ||--o{ BOOKING_CHANGES : proposes
     BOOKINGS ||--o{ BOOKING_ACTIONS : deduplicates
     HOST_PROFILES {
@@ -152,6 +159,14 @@ erDiagram
 The ER diagram lists selected fields, not a substitute for Alembic DDL. Each host can have many event types; slug uniqueness is scoped to the host. Availability contains timezone, weekly/override/focus windows and caps in a validated JSON payload. Booking snapshots preserve title, location, host context, buffers and change policies.
 
 `google_connections` stores a generation, preference revision, selected calendar IDs, destination and encrypted refresh token. `google_oauth_states` stores hashed state/binding and an encrypted verifier with expiry. Calendar jobs keep provider IDs/Meet URLs; email jobs keep encrypted capability/message material. `booking_actions` stores request hashes for lifecycle idempotency. At most one pending `booking_changes` row is allowed per booking.
+
+## Host invitations and live view updates
+
+The host reviews exact recipients and a published event revision. The API locks the verified host profile and event, checks the request hash, then queues the batch and one encrypted immutable message per recipient in the same transaction. Limits are 10 recipients/request, 20 recipients/host/UTC day and 50 invitation recipients/app/UTC day; the global counter's atomic upsert prevents concurrent overspend of this allowance. The counter stores no contact details. These invitation limits do not replace provider billing cutoffs or include booking confirmation volume.
+
+Host RLS policies restrict batch/status access; message ciphertext is not selectable by the API role. The existing email worker role claims invitation jobs with 90-second leases. A stable per-job Resend key, job delivery lock and frozen payload make automatic retries safe within the provider deduplication window. Stop retries after 23 hours from the first attempt; ambiguous terminal outcomes are uncertain. Terminal jobs clear encrypted messages. Provider acceptance is distinct from inbox delivery. No reservation or Calendar event is created by sharing.
+
+Booking-dependent React views poll every 15 seconds while visible and online and refresh on focus/reconnection. Same-origin tab invalidation carries only a marker. Contact drafts and duration selections survive updates; taken slots clear with an explanatory notice. Host booking counts, invitee delivery status and shared-invitation status use the same visibility-aware refresh hook.
 
 ## Reservation transaction
 

@@ -1,6 +1,6 @@
 # PetCalendar AI high level system design
 
-Version 1.0, 11 October 2026. This is the current system design for the functionality in [the specification](SPEC.md). The existing Railway environment is open for a user-approved public weekend release. The optional staging gate is disabled; host and booking authorization remain active. Google OAuth is still in Testing. Future integrations from the original kit are excluded from these diagrams.
+Version 1.1, 11 October 2026. This is the current system design for the functionality in [the specification](SPEC.md). The existing Railway environment is open for a user-approved public weekend release. The optional staging gate is disabled; host and booking authorization remain active. Google OAuth is still in Testing. Future integrations from the original kit are excluded from these diagrams.
 
 ## System context
 
@@ -38,7 +38,7 @@ flowchart TB
     Agent -->|Minimal context and strict tools| Model[OpenAI API]
     Worker -->|Claim jobs and save outcomes| DB
     Worker -->|Event and Meet operations| Google
-    Worker -->|Frozen message and ICS attachment| Email[Resend API]
+    Worker -->|Booking messages with ICS and public-link invitations| Email[Resend API]
 ```
 
 FastAPI serves both the compiled frontend and API from one origin. The frontend never receives database passwords or provider secrets. The scheduling engine is pure Python; services load settings and occupancy, invoke it and translate its results into API responses.
@@ -71,6 +71,8 @@ The migration credential stays local; web and worker use separate restricted dat
 When enabled, private staging uses a password challenge followed by an encrypted Secure/HttpOnly browser cookie with an eight-hour lifetime. Only `/api/health` bypasses that gate. The gate is disabled for the user-approved public weekend release. Supabase host authorization remains required for host operations.
 
 The purchased domain is verified for email, web/worker sender settings have been updated and the user confirmed a new booking email reached their inbox. Public access was separately approved and enabled. The current website origin is `https://web-staging-1ecf.up.railway.app`; no website custom-domain change is implied.
+
+Host event sharing uses the same web service, private database and delivery worker. Invitations are independently queued for reviewed guest addresses and contain only the public event link; they do not create bookings. The branded email has an HTML button and plain-text fallback. No additional hosting service or paid plan is introduced.
 
 ## Architectural decisions
 

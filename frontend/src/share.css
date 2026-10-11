@@ -1,0 +1,63 @@
+.share-event {
+  margin-bottom: 24px;
+}
+.share-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.share-heading h2 {
+  margin: 0;
+}
+.share-event label {
+  display: block;
+  margin: 16px 0 10px;
+  font-weight: 700;
+}
+.share-event textarea {
+  width: 100%;
+  padding: 12px;
+  font: inherit;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+}
+.share-event p {
+  line-height: 1.7;
+}
+.share-event a,
+.share-event li {
+  overflow-wrap: anywhere;
+}
+.share-email-preview {
+  max-width: 560px;
+  border: 1px solid var(--border-strong);
+  border-radius: 20px;
+  padding: 28px;
+  margin: 24px 0;
+}
+.share-email-preview h3 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 28px;
+  line-height: 1.3;
+}
+.share-email-details {
+  background: var(--raised);
+  padding: 20px;
+  border-radius: 12px;
+}
+.share-email-preview .event-primary {
+  display: inline-flex;
+  text-decoration: none;
+}
+@media (max-width: 640px) {
+  .share-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .share-email-preview {
+    padding: 20px;
+  }
+}

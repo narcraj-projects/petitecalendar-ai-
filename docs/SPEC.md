@@ -1,6 +1,6 @@
 # PetCalendar AI functional specification
 
-Version 1.0, 11 October 2026. This specification describes the implemented application and its agreed weekend-project scope. It was derived from the current code and feature reviews; it is not the missing specification referenced by the original design kit.
+Version 1.1, 11 October 2026. This specification describes the implemented application and its agreed weekend-project scope. It was derived from the current code and feature reviews; it is not the missing specification referenced by the original design kit.
 
 ## Purpose and users
 
@@ -43,6 +43,7 @@ The user purchased `petcalendar-ai.ink`, confirmed Resend verification and repor
 | FR18 | Invitee AI assistance | Use page event, selected duration and timezone to find valid slots; undated requests search the next seven days. Booking and rescheduling suggestions open the ordinary review flow. Explain saved policies and propose confirmed cancellation through a scoped private booking link. |
 | FR19 | Host AI assistance | Draft changes to an existing event or saved shared schedule/Focus Guard. Present a diff and require explicit confirmation. Creating a new event remains in the ordinary editor. |
 | FR20 | AI confirmation and fallback | Bind mutation proposals to exact validated arguments, actor or booking capability, target revision and 15-minute expiry. Reject stale or mismatched proposals. On model failure, refusal, rate limit or budget exhaustion, keep manual controls usable. |
+| FR21 | Host email sharing | A signed-in host reviews 1-10 unique guest email addresses and sends the published event's public link. Each recipient gets a separate branded HTML/plain-text invitation. No slot is reserved. Exact retries are deduplicated; per-host and app-wide daily limits apply. |
 
 ## Main user journeys
 
@@ -59,6 +60,10 @@ Guests need no login. They may open the shared link directly or paste it into th
 ### Booking changes
 
 Open the private link or host dashboard → choose cancellation or replacement times → review policy and details → explicitly submit. An approval request keeps the original time occupied until the host approves a freshly available alternative. Decline or withdrawal leaves the original reservation intact.
+
+### Host shares an event by email
+
+Event types → Share by email → enter guest addresses → Review invitation → inspect recipients, event and email preview → Send booking link. A durable job delivers a separate invitation to each address. The recipient chooses an available time and supplies their own contact details through the usual booking flow. Invitations contain a public link, never another person's private management link or a reserved time.
 
 ## Scheduling rules
 
@@ -98,7 +103,7 @@ Payments/deposits/refunds, WhatsApp, reminders, Mutual Match with invitee calend
 
 ## Verification and acceptance
 
-Existing verification includes 196 backend tests, seven opt-in PostgreSQL checks, container CI and per-feature browser test suites. Hosted staging checks observed authentication/onboarding, slots, a booking, Meet, earlier Calendar revision cleanup, provider-accepted emails and live AI slot suggestions. These historical results do not prove every live lifecycle path or inbox delivery in the current provider configuration.
+Current verification includes 210 passing backend tests, the original seven opt-in PostgreSQL checks plus an invitation check run against development and hosted databases with rolled-back fixtures, container CI and per-feature browser test suites. Hosted staging checks observed authentication/onboarding, slots, a booking, Meet, earlier Calendar revision cleanup, provider-accepted emails and live AI slot suggestions. These historical results do not prove every live lifecycle path or inbox delivery in the current provider configuration.
 
 For each next increment: test the changed behavior, check authorization/conflicts and provider failure handling where applicable, then review the user journey. For the purchased domain, acceptance requires verified Resend DNS, the updated sender and an actual invitee inbox check before claiming delivery works.
 
@@ -109,3 +114,5 @@ For each next increment: test the changed behavior, check authorization/conflict
 - [Architecture decisions and future direction](ARCHITECTURE.md)
 - [Implementation plan](IMPLEMENTATION_PLAN.md)
 - [Private staging review](reviews/10-private-staging.md)
+
+The user confirmed the public guest link works. A fresh-browser check blocked empty guest contact; the API rejected an empty-contact request with 422. Host-sharing browser checks verified recipient review, branded preview, exact uncertain retry and responsive layout. Invitation delivery uses provider doubles in these checks; actual inbox acceptance remains a user review step.

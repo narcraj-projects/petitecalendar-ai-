@@ -16,6 +16,12 @@ Booking-dependent screens refresh automatically while visible and online, every 
 
 `STAGING_PRIVATE=false` removes the shared password challenge. Host APIs still require a verified Supabase token, and booking management still requires its private capability. The worker has no public domain. No provider secrets or database credentials are exposed by this setting.
 
+## Host email invitations
+
+On Event types, a host can choose Share by email for a published event, enter guests' addresses, review the recipients and styled email, then send the booking link. Each guest receives a separate invitation from the verified app sender. The email says: "A conversation worth making time for" and includes the host, event, duration options and a Choose a time button, with a plain-text fallback. Guests still supply their own details when they book; an invitation creates no reservation.
+
+The existing Resend delivery worker handles encrypted, immutable invitation jobs. Exact retries reuse one batch; API/worker tenant permissions and per-recipient messages protect contacts. Sending is bounded to 10 recipients per request, 20 per host per UTC day and 50 invitation recipients per app per UTC day. These are application safeguards, not a guarantee about combined provider quota or billing. Status reports queued, accepted, failed or uncertain outcomes; accepted does not mean inbox delivery.
+
 ## Google access
 
 Google OAuth remains in **Testing**, as confirmed by the user. Guests can book without Google sign-in or Calendar authorization. Hosts connecting Google Calendar must be listed as Google test users. Calendar consent and refresh-token restrictions still apply; this release does not claim unrestricted Google Calendar onboarding for arbitrary hosts. See [Google audience guidance](https://support.google.com/cloud/answer/15549945).
