@@ -1,0 +1,1 @@
+"""PetCalendar AI application."""

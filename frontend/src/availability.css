@@ -1,0 +1,229 @@
+.schedule-fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+.event-card select {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  color: var(--text);
+  padding: 10px;
+  font: inherit;
+}
+.weekly-day {
+  border-top: 1px solid var(--border);
+  padding: 14px 0;
+}
+.weekly-day-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.schedule-time-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0;
+}
+.schedule-time-row input {
+  min-width: 0;
+  flex: 1;
+}
+.event-card .schedule-remove {
+  flex-shrink: 0;
+  min-width: 44px;
+  padding: 10px;
+}
+.override-row,
+.focus-row {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+.schedule-guard-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--guard);
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+.schedule-fieldset button:disabled {
+  cursor: default;
+}
+.availability-picker h2 {
+  margin: 12px 0;
+}
+.picker-month {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 20px 0;
+}
+.picker-month strong {
+  font-size: 16px;
+}
+.picker-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+.picker-weekday {
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  padding: 8px 0;
+}
+.picker-day {
+  border: 1px solid transparent;
+  min-height: 44px;
+  border-radius: 12px;
+  background: var(--raised);
+  color: var(--text);
+  position: relative;
+}
+.picker-day:disabled {
+  background: none;
+  color: var(--muted);
+  cursor: default;
+}
+.picker-day.available::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+  bottom: 4px;
+  left: calc(50% - 2px);
+}
+.picker-day[aria-pressed="true"] {
+  background: var(--accent);
+  color: var(--bg);
+}
+.picker-day[aria-pressed="true"]::after {
+  background: var(--bg);
+}
+.picker-slots {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 20px 0;
+}
+.picker-slot {
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  background: var(--surface);
+  min-height: 64px;
+  color: var(--text);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.picker-slot[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: var(--accent-tint);
+}
+.picker-slot small {
+  color: var(--muted);
+  font-size: 11px;
+}
+.picker-slot .picker-recommended {
+  color: var(--accent);
+}
+.picker-explanations {
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.picker-review {
+  margin: 20px 0;
+}
+.slot-review-dialog {
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 20px;
+  padding: 24px;
+  max-width: 440px;
+  width: calc(100% - 32px);
+}
+.slot-review-dialog::backdrop {
+  background: var(--overlay);
+}
+.slot-review-dialog h2 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 24px;
+  margin: 16px 0;
+}
+.slot-review-dialog p {
+  color: var(--muted);
+  line-height: 1.6;
+}
+.slot-review-dialog .event-primary,
+.slot-review-dialog .event-secondary {
+  width: 100%;
+  margin-top: 12px;
+}
+.slot-review-dialog dd {
+  margin: 6px 0 20px;
+  overflow-wrap: anywhere;
+}
+.slot-review-dialog dt {
+  font-size: 12px;
+  color: var(--muted);
+}
+.slot-review-close {
+  background: none;
+  border: 0;
+  color: var(--muted);
+  width: 44px;
+  height: 44px;
+  float: right;
+}
+.picker-loading {
+  padding: 28px 0;
+}
+.availability-picker .event-primary {
+  width: 100%;
+}
+.picker-zone-label {
+  margin-top: 24px;
+}
+.published-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+@media (max-width: 600px) {
+  .events-nav > a:not(.event-brand) {
+    font-size: 12px;
+    padding: 10px;
+  }
+  .events-nav-bottom button {
+    font-size: 12px;
+  }
+  .schedule-time-row {
+    gap: 6px;
+  }
+  .schedule-time-row input {
+    padding: 10px 6px;
+  }
+  .picker-calendar {
+    gap: 4px;
+  }
+  .picker-slots {
+    gap: 8px;
+  }
+  .published-grid {
+    grid-template-columns: 1fr;
+  }
+}

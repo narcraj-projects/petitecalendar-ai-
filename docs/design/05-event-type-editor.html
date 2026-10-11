@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Event type editor – limits and policies</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#C8F25C}a:hover{color:#E2FF9A}
+</style>
+</helmet>
+<div style="box-sizing: border-box; min-height: 960px; background: #0D0F14; font-family: Manrope, system-ui, sans-serif; color: #EEF0F4; display: flex; flex-wrap: wrap; align-items: stretch">
+
+<nav aria-label="Main" style="flex: 1 1 220px; max-width: 260px; box-sizing: border-box; background: #151922; border-right: 1px solid #262B36; padding: 20px 14px; display: flex; flex-direction: column; gap: 4px">
+<div style="display: flex; align-items: center; gap: 10px; padding: 0 8px 20px">
+<div style="width: 28px; height: 28px; border-radius: 8px; background: #C8F25C"></div>
+<span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: -0.01em">PetiteCalendar</span>
+</div>
+<a href="Dashboard.dc.html" style="min-height: 44px; display: flex; align-items: center; padding: 0 12px; border-radius: 10px; color: #EEF0F4; text-decoration: none; font-size: 15px">Bookings</a>
+<a href="#" style="min-height: 44px; display: flex; align-items: center; padding: 0 12px; border-radius: 10px; background: #1A2110; color: #C8F25C; font-weight: 600; text-decoration: none; font-size: 15px">Event types</a>
+<a href="#" style="min-height: 44px; display: flex; align-items: center; padding: 0 12px; border-radius: 10px; color: #EEF0F4; text-decoration: none; font-size: 15px">Availability</a>
+<a href="#" style="min-height: 44px; display: flex; align-items: center; padding: 0 12px; border-radius: 10px; color: #EEF0F4; text-decoration: none; font-size: 15px">Focus Guard</a>
+<a href="#" style="min-height: 44px; display: flex; align-items: center; padding: 0 12px; border-radius: 10px; color: #EEF0F4; text-decoration: none; font-size: 15px">Polls</a>
+<a href="#" style="min-height: 44px; display: flex; align-items: center; padding: 0 12px; border-radius: 10px; color: #EEF0F4; text-decoration: none; font-size: 15px">Integrations</a>
+<a href="#" style="min-height: 44px; display: flex; align-items: center; padding: 0 12px; border-radius: 10px; color: #EEF0F4; text-decoration: none; font-size: 15px">Settings</a>
+</nav>
+
+<main style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 28px 32px; display: flex; flex-direction: column; gap: 20px">
+
+<div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<a href="#" style="font-size: 14px; font-weight: 500">← Event types</a>
+<h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 34px; font-weight: 700; letter-spacing: -0.03em">Career strategy call</h1>
+<span style="font-size: 14px; color: #9AA1AE">30 / 45 / 60 min · Google Meet · ₹1,500</span>
+</div>
+<div style="display: flex; gap: 10px">
+<button style="min-height: 44px; padding: 0 16px; border-radius: 22px; border: 1px solid #343A48; background: #151922; font: 600 14px Manrope, sans-serif; color: #EEF0F4">Preview</button>
+<button style="min-height: 44px; padding: 0 18px; border-radius: 22px; border: none; background: #C8F25C; color: #0D0F14; font: 600 14px Manrope, sans-serif">Save changes</button>
+</div>
+</div>
+
+<div role="tablist" aria-label="Event settings" style="display: flex; gap: 6px; flex-wrap: wrap; border-bottom: 1px solid #262B36">
+<button role="tab" aria-selected="false" style="min-height: 44px; padding: 0 14px; border: none; background: none; font: 500 15px Manrope, sans-serif; color: #9AA1AE">Basics</button>
+<button role="tab" aria-selected="false" style="min-height: 44px; padding: 0 14px; border: none; background: none; font: 500 15px Manrope, sans-serif; color: #9AA1AE">Availability</button>
+<button role="tab" aria-selected="true" style="min-height: 44px; padding: 0 14px; border: none; border-bottom: 2px solid #C8F25C; background: none; font: 600 15px Manrope, sans-serif; color: #C8F25C">Limits &amp; policies</button>
+<button role="tab" aria-selected="false" style="min-height: 44px; padding: 0 14px; border: none; background: none; font: 500 15px Manrope, sans-serif; color: #9AA1AE">Questions</button>
+<button role="tab" aria-selected="false" style="min-height: 44px; padding: 0 14px; border: none; background: none; font: 500 15px Manrope, sans-serif; color: #9AA1AE">Payments</button>
+<button role="tab" aria-selected="false" style="min-height: 44px; padding: 0 14px; border: none; background: none; font: 500 15px Manrope, sans-serif; color: #9AA1AE">Reminders</button>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start">
+
+<div style="flex: 2 1 420px; display: flex; flex-direction: column; gap: 20px">
+
+<section style="background: #151922; border: 1px solid #262B36; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 16px">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 19px">Booking limits</h2>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px">
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="notice" style="font-size: 13px; font-weight: 600; color: #9AA1AE">Minimum notice</label><select id="notice" style="min-height: 44px; border-radius: 10px; border: 1px solid #343A48; padding: 0 12px; font: 500 14px Manrope, sans-serif; background: #151922; color: #EEF0F4"><option>12 hours</option></select></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="maxday" style="font-size: 13px; font-weight: 600; color: #9AA1AE">Max of this event per day</label><input id="maxday" value="3" style="min-height: 44px; border-radius: 10px; border: 1px solid #343A48; padding: 0 12px; font: 500 14px Manrope, sans-serif; box-sizing: border-box; background: #151922; color: #EEF0F4"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="bb" style="font-size: 13px; font-weight: 600; color: #9AA1AE">Buffer before</label><select id="bb" style="min-height: 44px; border-radius: 10px; border: 1px solid #343A48; padding: 0 12px; font: 500 14px Manrope, sans-serif; background: #151922; color: #EEF0F4"><option>10 min</option></select></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="ba" style="font-size: 13px; font-weight: 600; color: #9AA1AE">Buffer after</label><select id="ba" style="min-height: 44px; border-radius: 10px; border: 1px solid #343A48; padding: 0 12px; font: 500 14px Manrope, sans-serif; background: #151922; color: #EEF0F4"><option>15 min</option></select></div>
+</div>
+</section>
+
+<section style="background: #151922; border: 1px solid #262B36; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 19px">Reschedule &amp; cancel policy</h2>
+<span style="font-size: 12px; font-weight: 600; color: #FFD08A; background: #2A2416; border-radius: 10px; padding: 4px 10px">Shown to invitees</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px">
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="rc" style="font-size: 13px; font-weight: 600; color: #9AA1AE">Free reschedule until</label><select id="rc" style="min-height: 44px; border-radius: 10px; border: 1px solid #343A48; padding: 0 12px; font: 500 14px Manrope, sans-serif; background: #151922; color: #EEF0F4"><option>12 hours before</option></select></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="dep" style="font-size: 13px; font-weight: 600; color: #9AA1AE">Deposit kept on late cancel</label><select id="dep" style="min-height: 44px; border-radius: 10px; border: 1px solid #343A48; padding: 0 12px; font: 500 14px Manrope, sans-serif; background: #151922; color: #EEF0F4"><option>₹500 (33%)</option></select></div>
+</div>
+<div style="display: flex; gap: 12px; align-items: center">
+<input id="appr" type="checkbox" style="width: 22px; height: 22px; accent-color: #C8F25C">
+<label for="appr" style="font-size: 14px">Reschedules need my approval</label>
+</div>
+<div style="display: flex; gap: 12px; align-items: center">
+<input id="alt" type="checkbox" checked="" style="width: 22px; height: 22px; accent-color: #C8F25C">
+<label for="alt" style="font-size: 14px">Let me propose 3 alternative times instead of declining</label>
+</div>
+</section>
+
+<section style="background: #151922; border: 1px solid #262B36; border-radius: 16px; padding: 20px; display: flex; gap: 16px; align-items: flex-start">
+<input id="mm" type="checkbox" checked="" style="width: 22px; height: 22px; accent-color: #C8F25C; flex: none; margin-top: 3px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<label for="mm" style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 19px">Offer Mutual Match</label>
+<span style="font-size: 14px; color: #9AA1AE; line-height: 1.45">Invitees can connect their calendar to see only times that suit both of you. Their events are never stored.</span>
+</div>
+</section>
+</div>
+
+<aside style="flex: 1 1 280px; display: flex; flex-direction: column; gap: 20px">
+<section style="background: #151922; border: 1px solid #262B36; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+<div style="font-size: 13px; font-weight: 600; color: #FFB547">FOCUS GUARD · ALL EVENTS</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="cap" style="font-size: 14px; font-weight: 600">Max meetings per day: 4</label>
+<input id="cap" type="range" min="1" max="10" value="4" style="accent-color: #FFB547; min-height: 44px">
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="wk" style="font-size: 14px; font-weight: 600">Max meeting hours per week: 12</label>
+<input id="wk" type="range" min="2" max="40" value="12" style="accent-color: #FFB547; min-height: 44px">
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 14px; font-weight: 600">Protected focus blocks</div>
+<div style="background: #2A2416; border-radius: 10px; padding: 10px 12px; font-size: 14px; color: #FFD08A">Mon–Fri · 09:00–11:00</div>
+<div style="background: #2A2416; border-radius: 10px; padding: 10px 12px; font-size: 14px; color: #FFD08A">Fri · 14:00–18:00</div>
+<button style="min-height: 44px; border-radius: 10px; border: 1px dashed #FFB547; background: #151922; font: 600 14px Manrope, sans-serif; color: #FFB547">Add focus block</button>
+</div>
+<div style="display: flex; gap: 12px; align-items: center">
+<input id="cl" type="checkbox" checked="" style="width: 22px; height: 22px; accent-color: #FFB547">
+<label for="cl" style="font-size: 14px">Cluster meetings together</label>
+</div>
+</section>
+
+<section style="background: #1A2110; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 6px">
+<div style="font-size: 13px; font-weight: 600; color: #C8F25C">LIVE PREVIEW</div>
+<div style="font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 600; color: #C8F25C">5 slots on a typical Tuesday</div>
+<div style="font-size: 14px; color: #C7CDB8; line-height: 1.45">Down from 9 before buffers and focus blocks.</div>
+</section>
+</aside>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":960}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

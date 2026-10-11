@@ -1,0 +1,44 @@
+.venv/
+.tools/
+.cache/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+node_modules/
+frontend/dist/
+playwright-report/
+test-results/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+# Original requirements remain in the user's backup, outside GitHub.
+*.zip
+*.drawio
+*drawio*.html
+# Local credentials, exports and editor state.
+*.pem
+*.key
+*.p12
+*.pfx
+.aws/
+.codex/
+.agents/
+*.log
+# Original requirements remain in the user's backup, outside GitHub.
+*.zip
+*.drawio
+*drawio*.html
+# Local credentials, exports and editor state.
+*.pem
+*.key
+*.p12
+*.pfx
+.aws/
+.codex/
+.agents/
+*.log
+
+# Local review screenshots may contain account details.
+docs/reviews/*.png

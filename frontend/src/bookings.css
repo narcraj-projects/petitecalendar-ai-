@@ -1,0 +1,179 @@
+.confirmation-main {
+  max-width: 760px;
+  display: grid;
+  gap: 20px;
+}
+.confirmation-heading h1 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 40px;
+  margin: 16px 0;
+}
+.confirmation-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: var(--bg);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+}
+.booking-zones {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.booking-zones > div {
+  background: var(--raised);
+  padding: 16px;
+  border-radius: 14px;
+  display: grid;
+  gap: 12px;
+  overflow-wrap: anywhere;
+}
+.booking-zones small,
+.booking-row small {
+  color: var(--muted);
+}
+.booking-status {
+  color: var(--accent);
+  background: var(--accent-tint);
+  padding: 8px 12px;
+  display: inline-block;
+  border-radius: 10px;
+  text-transform: capitalize;
+}
+.booking-form label {
+  display: block;
+  margin-top: 14px;
+}
+.booking-form input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  padding: 12px;
+  margin-top: 6px;
+  color: var(--text);
+  background: var(--raised);
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  font: inherit;
+}
+.bookings-title,
+.bookings-controls {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.bookings-controls label,
+.bookings-controls .booking-filter {
+  display: grid;
+  gap: 8px;
+}
+.bookings-controls input,
+.bookings-controls select {
+  min-height: 44px;
+  background: var(--surface);
+  color: var(--text);
+  padding: 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  font: inherit;
+  color-scheme: dark;
+}
+.focus-week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+.focus-week small {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.focus-track {
+  height: 80px;
+  background: var(--raised);
+  border-radius: 8px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+.focus-track span {
+  width: 100%;
+  background: var(--accent);
+}
+.focus-track span.full {
+  background: var(--guard);
+}
+.booking-list {
+  display: grid;
+  gap: 12px;
+}
+.booking-row {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr;
+  gap: 20px;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 600px) {
+  .booking-zones,
+  .booking-row {
+    grid-template-columns: 1fr;
+  }
+  .focus-week {
+    gap: 6px;
+  }
+  .focus-week small {
+    font-size: 10px;
+  }
+}
+.booking-management {
+  min-width: 0;
+}
+.management-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.management-review,
+.management-request {
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+.booking-management button {
+  margin: 6px 8px 6px 0;
+  white-space: normal;
+}
+.booking-management .event-card {
+  margin: 16px 0;
+}
+.booking-row > .booking-management {
+  grid-column: 1 / -1;
+}
+.booking-management .availability-picker {
+  padding: 0;
+  border: 0;
+}
+.booking-management .picker-calendar {
+  grid-template-columns: repeat(7, minmax(44px, 1fr));
+  gap: 1px;
+  overflow-x: auto;
+}
+.booking-management .picker-day,
+.booking-management .picker-slot {
+  margin: 0;
+}
+.booking-management .picker-day {
+  min-width: 44px;
+}
+.booking-row > .booking-management {
+  padding: 0;
+  border: 0;
+}

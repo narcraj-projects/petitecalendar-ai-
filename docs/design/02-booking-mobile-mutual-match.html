@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mobile booking with Mutual Match</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#C8F25C}a:hover{color:#E2FF9A}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #0D0F14; font-family: Manrope, system-ui, sans-serif; color: #EEF0F4; display: flex; flex-direction: column">
+
+<div style="padding: 16px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #262B36">
+<button aria-label="Back" style="width: 44px; height: 44px; border-radius: 22px; border: 1px solid #343A48; background: transparent; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#EEF0F4" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: -0.01em">Career strategy call</span>
+<span style="font-size: 13px; color: #9AA1AE">Ananya Rao · 45 min · ₹1,500</span>
+</div>
+</div>
+
+<div style="flex: 1; overflow: hidden; padding: 18px 16px; display: flex; flex-direction: column; gap: 16px">
+
+<div style="background: #1A2110; border: 1px solid #3D4A1E; border-radius: 16px; padding: 14px; display: flex; gap: 12px; align-items: flex-start">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C8F25C" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="flex: none; margin-top: 2px"><circle cx="9" cy="12" r="6"></circle><circle cx="15" cy="12" r="6"></circle></svg>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-weight: 700; font-size: 15px; color: #C8F25C">Showing times you're both free</span>
+<span style="font-size: 13px; line-height: 1.45; color: #C7CDB8">Your calendar stays private and nothing is saved.</span>
+</div>
+</div>
+
+<div style="display: flex; gap: 6px">
+<sc-for list="{{days}}" as="d" hint-placeholder-count="5">
+<sc-if value="{{d.sel}}" hint-placeholder-val="{{ false }}">
+<button style="flex: 1; min-height: 68px; border-radius: 14px; border: none; background: #C8F25C; color: #0D0F14; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-family: Manrope, sans-serif">
+<span style="font-size: 12px; font-weight: 700">{{d.wd}}</span><span style="font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700">{{d.n}}</span>
+</button>
+</sc-if>
+<sc-if value="{{d.plain}}" hint-placeholder-val="{{ true }}">
+<button style="flex: 1; min-height: 68px; border-radius: 14px; border: none; background: #1E2330; color: #EEF0F4; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-family: Manrope, sans-serif">
+<span style="font-size: 12px; font-weight: 600; color: #9AA1AE">{{d.wd}}</span><span style="font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700">{{d.n}}</span>
+</button>
+</sc-if>
+</sc-for>
+</div>
+
+<div style="display: flex; justify-content: space-between; align-items: baseline">
+<span style="font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 20px">3 shared times</span>
+<span style="font-size: 13px; color: #9AA1AE">London · IST</span>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; gap: 8px">
+<button style="flex: 1; min-height: 60px; border-radius: 14px; border: none; background: #EEF0F4; color: #0D0F14; padding: 0 14px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 2px; font-family: Manrope, sans-serif">
+<span style="font-size: 16px; font-weight: 800">10:15</span>
+<span style="font-size: 12px; font-weight: 600; color: #3A3F4A">14:45 IST · best fit</span>
+</button>
+<button style="min-height: 60px; padding: 0 18px; border-radius: 14px; border: none; background: #C8F25C; color: #0D0F14; font: 800 15px Manrope, sans-serif">Next →</button>
+</div>
+<button style="min-height: 60px; border-radius: 14px; border: 1px solid #343A48; background: transparent; color: #EEF0F4; padding: 0 14px; display: flex; justify-content: space-between; align-items: center; font: 700 16px Manrope, sans-serif">12:15<span style="font-size: 13px; font-weight: 500; color: #9AA1AE">16:45 IST</span></button>
+<button style="min-height: 60px; border-radius: 14px; border: 1px solid #343A48; background: transparent; color: #EEF0F4; padding: 0 14px; display: flex; justify-content: space-between; align-items: center; font: 700 16px Manrope, sans-serif">13:30<span style="font-size: 13px; font-weight: 500; color: #9AA1AE">18:00 IST</span></button>
+</div>
+
+<div style="font-size: 13px; color: #9AA1AE; line-height: 1.45">2 more times are open for Ananya but clash with your calendar. <a href="#">Show anyway</a></div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const days = [
+      { wd: 'Mon', n: '12', sel: false },
+      { wd: 'Tue', n: '13', sel: true },
+      { wd: 'Wed', n: '14', sel: false },
+      { wd: 'Thu', n: '15', sel: false },
+      { wd: 'Fri', n: '16', sel: false }
+    ].map(function (d) { return Object.assign({}, d, { plain: !d.sel }); });
+    return { days: days };
+  }
+}
+</script>
+</body>
+</html>

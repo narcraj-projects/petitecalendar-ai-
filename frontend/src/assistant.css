@@ -1,0 +1,114 @@
+.assistant-panel {
+  margin: 20px 0;
+  border: 1px solid var(--border-strong);
+  border-radius: 16px;
+  background: var(--surface);
+  min-width: 0;
+}
+.assistant-panel summary {
+  min-height: 48px;
+  padding: 14px 16px;
+  cursor: pointer;
+  color: var(--accent);
+  font-weight: 700;
+}
+.assistant-content {
+  padding: 0 16px 16px;
+  display: grid;
+  gap: 12px;
+}
+.assistant-content p {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.assistant-content label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+.assistant-content select,
+.assistant-content textarea {
+  width: 100%;
+  min-height: 44px;
+  background: var(--raised);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  padding: 12px;
+  font: inherit;
+}
+.assistant-content textarea {
+  min-height: 88px;
+  resize: vertical;
+}
+.assistant-content form button {
+  margin-top: 12px;
+}
+.assistant-disclosure {
+  color: var(--muted);
+  font-size: 13px;
+}
+.assistant-result {
+  display: grid;
+  gap: 12px;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+.assistant-diff {
+  margin: 0;
+  display: grid;
+  gap: 14px;
+}
+.assistant-diff dt {
+  color: var(--muted);
+  font-size: 14px;
+}
+.assistant-diff dd {
+  margin: 4px 0 0;
+  display: grid;
+  gap: 4px;
+  overflow-wrap: anywhere;
+}
+.assistant-slots {
+  display: grid;
+  gap: 8px;
+}
+.assistant-slots button {
+  display: grid;
+  text-align: left;
+  white-space: normal;
+  gap: 4px;
+  padding: 12px;
+}
+.assistant-slots button span {
+  color: var(--muted);
+  font-size: 13px;
+}
+.assistant-time-review {
+  display: grid;
+  gap: 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  padding: 16px;
+}
+.assistant-time-review h3 {
+  margin: 0;
+}
+.assistant-content button {
+  min-height: 44px;
+}
+.assistant-target {
+  display: grid;
+  gap: 6px;
+  margin: 20px 0 0;
+}
+.assistant-target select {
+  max-width: 100%;
+  min-height: 44px;
+  padding: 10px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  font: inherit;
+}

@@ -1,0 +1,63 @@
+.integration-intro > svg {
+  color: var(--accent);
+}
+.integration-form fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+.integration-form legend {
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+.integration-form select {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  background: var(--raised);
+  color: var(--text);
+  padding: 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  font: inherit;
+  margin: 8px 0 20px;
+}
+.event-card .integration-check {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 10px 0;
+  cursor: pointer;
+  color: var(--text);
+  font-size: 14px;
+  margin: 8px 0;
+}
+.integration-check input {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  accent-color: var(--accent);
+}
+.integration-check small {
+  display: block;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.integration-check span {
+  overflow-wrap: anywhere;
+}
+.integration-notice {
+  color: var(--accent);
+}
+.calendar-delivery {
+  display: grid;
+  gap: 8px;
+}
+.calendar-delivery a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--accent);
+}

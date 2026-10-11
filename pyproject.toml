@@ -1,0 +1,25 @@
+[project]
+name = "petcalendar-ai"
+version = "0.1.0"
+description = "Python scheduling services for PetCalendar AI"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "fastapi>=0.115,<1", "uvicorn>=0.34,<1", "tzdata>=2025.1",
+    "SQLAlchemy>=2.0,<3", "alembic>=1.15,<2", "psycopg[binary]>=3.2,<4",
+    "PyJWT[crypto]>=2.10,<3", "python-dotenv>=1.0,<2",
+    "httpx>=0.28,<1", "cryptography>=44,<51", "google-auth-oauthlib>=1.2,<2",
+]
+
+[dependency-groups]
+dev = ["pytest>=8,<10", "httpx>=0.28,<1", "ruff>=0.11,<1"]
+
+[tool.pytest.ini_options]
+pythonpath = ["backend"]
+testpaths = ["backend/tests"]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]

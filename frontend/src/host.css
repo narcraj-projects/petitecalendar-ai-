@@ -1,0 +1,271 @@
+.host-shell {
+  max-width: 1180px;
+  margin: auto;
+  padding: 28px;
+}
+.host-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 12px 0 28px;
+  border-bottom: 1px solid var(--border);
+}
+.host-header a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  text-decoration: none;
+  min-height: 44px;
+}
+.host-brand {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+}
+.host-brand svg {
+  color: var(--accent);
+}
+.host-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+  padding: 64px 0;
+}
+.host-intro {
+  padding-top: 28px;
+}
+.host-eyebrow {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+.host-intro h1 {
+  font-size: 46px;
+  line-height: 1.12;
+  margin: 20px 0;
+}
+.host-intro p,
+.host-card p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+.host-protection {
+  display: flex;
+  gap: 14px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  margin: 28px 0;
+}
+.host-protection svg {
+  flex-shrink: 0;
+  color: var(--accent);
+}
+.host-protection p {
+  margin: 0;
+}
+.host-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 28px;
+  min-width: 0;
+}
+.host-card h2 {
+  font-size: 28px;
+  margin: 14px 0;
+}
+.host-card input,
+.host-card select {
+  display: block;
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  min-height: 48px;
+  padding: 12px;
+  color: var(--text);
+  margin: 10px 0 18px;
+  font: inherit;
+}
+.host-card label {
+  display: block;
+  font-weight: 700;
+  margin-top: 20px;
+}
+.host-card input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+.host-primary,
+.host-secondary {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 12px;
+  min-height: 48px;
+  padding: 12px 16px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 14px;
+}
+.host-primary {
+  background: var(--accent);
+  color: var(--bg);
+  border: 1px solid var(--accent);
+}
+.host-secondary {
+  background: var(--raised);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+}
+.host-card button:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+.host-divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--muted);
+  font-size: 13px;
+  margin: 24px 0;
+}
+.host-divider::before,
+.host-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.host-card .host-small {
+  font-size: 13px;
+  margin-top: 20px;
+}
+.host-steps {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  gap: 8px;
+  margin: 24px 0 32px;
+}
+.host-steps li {
+  flex: 1;
+  color: var(--muted);
+}
+.host-steps span {
+  display: flex;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+  margin-bottom: 8px;
+}
+.host-steps small {
+  font-size: 11px;
+}
+.host-steps .reached span {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+}
+.host-steps [aria-current] small {
+  color: var(--text);
+  font-weight: 800;
+}
+.host-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+}
+.host-link-preview {
+  background: var(--raised);
+  border-radius: 12px;
+  padding: 16px;
+  color: var(--accent);
+  overflow-wrap: anywhere;
+}
+.host-summary {
+  margin: 24px 0;
+}
+.host-summary div {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+.host-summary dt {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+.host-summary dd {
+  margin: 0;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+.host-error {
+  padding: 16px;
+  border: 1px solid var(--guard);
+  border-radius: 12px;
+  color: var(--guard);
+  margin-top: 20px;
+}
+.host-card .host-notice {
+  color: var(--accent);
+  padding: 16px;
+  border: 1px solid var(--accent-border);
+  background: var(--accent-tint);
+  border-radius: 12px;
+}
+.host-text-button {
+  background: none;
+  border: 0;
+  color: var(--muted);
+  min-height: 44px;
+  padding: 12px;
+  margin-top: 16px;
+  cursor: pointer;
+}
+@media (max-width: 700px) {
+  .host-shell {
+    padding: 16px;
+  }
+  .host-header {
+    gap: 12px;
+    padding-bottom: 16px;
+  }
+  .host-brand {
+    font-size: 18px;
+  }
+  .host-header > a:last-child {
+    font-size: 12px;
+  }
+  .host-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 28px 0;
+  }
+  .host-intro {
+    padding: 0;
+  }
+  .host-intro h1 {
+    font-size: 34px;
+  }
+  .host-intro .host-protection {
+    display: none;
+  }
+  .host-card {
+    padding: 20px;
+  }
+  .host-card h2 {
+    font-size: 25px;
+  }
+}
