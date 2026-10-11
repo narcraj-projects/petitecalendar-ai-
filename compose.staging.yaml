@@ -1,0 +1,35 @@
+name: petcalendar-ai-staging
+services:
+  web:
+    image: petcalendar-ai:staging
+    build: .
+    env_file: .env.staging
+    ports:
+      - "127.0.0.1:8027:8017"
+    restart: unless-stopped
+    init: true
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+  worker:
+    image: petcalendar-ai:staging
+    env_file: .env.staging
+    command: ["python", "-m", "app.worker"]
+    healthcheck:
+      disable: true
+    restart: unless-stopped
+    init: true
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    depends_on:
+      web:
+        condition: service_healthy

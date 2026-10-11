@@ -1,0 +1,31 @@
+name: Container check
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  container:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build locked runtime image
+        run: docker build -t petcalendar-ai:check .
+      - name: Verify worker imports
+        run: docker run --rm --entrypoint python petcalendar-ai:check -c "import app.worker; import app.email_worker"
+      - name: Verify non-root web startup and assets
+        shell: bash
+        run: |
+          docker run -d --name petcalendar-check -p 127.0.0.1:8027:8017 petcalendar-ai:check
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:8027/api/health > /dev/null; then break; fi
+            sleep 2
+          done
+          curl --fail --silent http://127.0.0.1:8027/api/health
+          curl --fail --silent http://127.0.0.1:8027/ | grep 'PetCalendar AI'
+          test "$(docker inspect -f '{{.Config.User}}' petcalendar-check)" = '10001:10001'
+      - name: Container logs
+        if: always()
+        run: docker logs petcalendar-check || true

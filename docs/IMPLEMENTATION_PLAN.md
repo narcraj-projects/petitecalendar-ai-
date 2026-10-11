@@ -108,3 +108,7 @@ The user's Step 9 feedback requested fewer clarification questions and automatic
 ## Application name and GitHub handoff
 
 On 11 October 2026 the user named the application **PetCalendar AI**, with **petcalendar-ai** as the GitHub repository name. UI labels, browser title, API metadata, model instructions, calendar product label and package names reflect the new name. Existing database roles, Google private markers and stable calendar UIDs keep their original internal identifiers to preserve existing bookings and connected calendars. The user moved the original ZIP and draw.io workflow into an external backup. Git ignores those formats, credentials, local tooling and review screenshots. The refined Step 9 review was accepted; GitHub handoff precedes deployment.
+
+## Step 10: staging preparation
+
+The user accepted proceeding after the private GitHub handoff. Prepare a locked dependency container, separate API and durable worker processes, isolated staging secrets and migrations, HTTPS/OAuth origins, private ingress and an acceptance/rollback path. The user has no hosting account yet. Container build execution, hosting choice, online provisioning and live staging acceptance remain pending. Production release remains separate. See [staging setup](STAGING_SETUP.md).

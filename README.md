@@ -118,3 +118,7 @@ exact layout, spacing, colours and copy from them; treat them as the visual sour
 Step 8 adds change controls to the private confirmation and host dashboard. Apply `uv run alembic upgrade head`, rebuild the frontend and restart both API and delivery worker. No additional credentials are required. The original booking stays reserved during approval and on failure; proposed alternatives are not held. Host review supports approve/decline, and invitees can withdraw. Calendar cleanup and change emails run durably after commit. Resend remains in test mode. See [Step 8 review](docs/reviews/08-booking-lifecycle.md).
 
 Stop the live delivery worker before all six opt-in PostgreSQL checks: set `$env:RUN_DATABASE_TESTS='1'` and run `uv run pytest backend/tests -q -k database`, then remove the flag. External providers are fake; fixtures use committed random IDs and are cleaned up in `finally`.
+
+## Staging deployment preparation
+
+Container build and separate web/worker definitions are in `Dockerfile` and `compose.staging.yaml`. See [staging setup](docs/STAGING_SETUP.md) for isolated credentials, OAuth redirects, private access and acceptance. No online service has been provisioned.
