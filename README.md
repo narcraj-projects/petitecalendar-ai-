@@ -1,5 +1,7 @@
 # PetCalendar AI
 
+The application name is **PetCalendar AI**; the repository and package name is `petcalendar-ai`. Legacy internal database roles, Google event markers and calendar UIDs retain their original identifiers so existing bookings and integrations stay compatible. Design references use `petcalendar-ai.example` as a placeholder, not a registered application domain.
+
 The current direction is Python, Supabase and agentic AI, implemented and reviewed one functionality at a time. See [Architecture](docs/ARCHITECTURE.md), [Implementation plan](docs/IMPLEMENTATION_PLAN.md) and [Design adaptation](docs/DESIGN_ADAPTATION.md). The original ZIP is preserved. Its technology instructions are superseded by AGENTS.md; docs/SPEC.md was not included.
 
 ## Scheduling assistant (Step 9)
