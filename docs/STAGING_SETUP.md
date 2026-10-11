@@ -1,6 +1,6 @@
 # PetCalendar AI staging setup
 
-Step 10 is in progress. Railway CLI authentication and the workspace USD 10 compute cutoff, USD 7 alert and disabled Railway Agent were verified. An empty `petcalendar-ai-staging` project has been created. A separate staging Supabase database connection was verified; hosted deployment and live acceptance remain pending. Private source on GitHub does not make a deployed booking page private.
+Step 10 is in progress. Railway CLI authentication and the workspace USD 10 compute cutoff, USD 7 alert and disabled Railway Agent were verified. The `petcalendar-ai-staging` project contains empty `web` and `worker` services. All eight migrations were applied to the separate staging Supabase database; separate restricted NOINHERIT web and worker logins were verified. Hosted deployment and live acceptance remain pending. Private source on GitHub does not make a deployed booking page private.
 
 ## Package and configuration
 
@@ -55,4 +55,6 @@ On 11 October 2026 the user authorized a total maximum of USD 20/month for this 
 
 Railway's hard cutoff can stop web and worker delivery. Pending bookings/jobs remain in PostgreSQL; external delivery may wait until services are restored within an authorized budget. Do not raise the cutoff automatically. An OpenAI cutoff only pauses assistant calls; ordinary booking remains available while the web service is running. Existing hourly limits are not monthly billing controls. Monthly resets follow each provider's billing cycle, which need not align.
 
-Verification pending: new Railway account and cutoff, dedicated OpenAI project/key and cutoff, actual tax treatment, hosted private ingress and isolated staging resources. No paid hosted service has been created in this session.
+Verified: Railway account/CLI, workspace compute cutoff and alert, disabled Railway Agent, isolated staging database, migrations and restricted runtime logins. The user confirms a dedicated OpenAI project with an enforced USD 3 limit and has saved its key; provider authentication remains pending. Actual tax treatment and hosted access remain pending. No running hosted deployment has been started.
+
+The private staging access change passed Ruff and 196 backend tests (seven opt-in PostgreSQL checks excluded from that run). Its [Linux container build and startup check](https://github.com/narcraj-projects/petcalendar-ai/actions/runs/38145354810) passed for `08e3951`. Railway reports `Not Authorized` when listing GitHub repositories; the user must connect GitHub and grant Railway access only to `narcraj-projects/petcalendar-ai`. Automatic approval review separately requires explicit authorization to upload local staging secrets into Railway service variables. No secrets have been uploaded; that authorization was requested. Do not work around the review rejection.
