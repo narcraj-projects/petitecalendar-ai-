@@ -4,6 +4,8 @@ For the current implemented release, start with the [functional specification](S
 
 Build a Python scheduling application backed by Supabase, with an agent that turns natural-language intent into validated scheduling actions. FastAPI owns the domain rules; a Python worker performs durable external side effects. A React frontend preserves the Midnight design. Implement one functionality at a time and stop for review.
 
+Booking-dependent React views use visible/online polling every 15 seconds, focus/reconnection refresh and same-origin tab invalidation after successful commands. This refreshes public slots, private delivery/lifecycle status and host booking/Focus Guard counts without reloading contact drafts. PostgreSQL remains authoritative; no browser invalidation message contains booking details or capabilities. Guests open shared event links without authentication; homepage host sign-in and guest link entry are separate.
+
 The user selected Python, Supabase and agentic AI on 11 October 2026, superseding the kit's technology choices. This proposal preserves its functionality; it is not the missing Product and Technical Design Spec.
 
 ## Requirements and boundaries

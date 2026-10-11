@@ -1,5 +1,6 @@
 import { useEffect, useId, useState } from "react";
 import BookingForm from "./BookingForm";
+import { notifyBookingChanged } from "../useLiveRefresh";
 import "../assistant.css";
 
 type Slot = { start: string; end: string; date: string };
@@ -173,6 +174,7 @@ export default function AssistantPanel({
           : "Settings saved. Available times will use the updated rules.",
       );
       onSaved?.(data);
+      notifyBookingChanged();
     } catch (e) {
       const status = (e as Error & { status?: number }).status;
       setUncertain(!status || status >= 500);

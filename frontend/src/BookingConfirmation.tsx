@@ -5,6 +5,7 @@ import "./bookings.css";
 import CalendarDelivery from "./components/CalendarDelivery";
 import EmailDelivery from "./components/EmailDelivery";
 import BookingManagement from "./components/BookingManagement";
+import { useLiveRefresh } from "./useLiveRefresh";
 export type SavedBooking = {
   id: string;
   start_at: string;
@@ -50,6 +51,8 @@ export const bookingTime = (instant: string, zone: string) =>
 const privateCapability = window.location.hash.slice(1);
 const bookingPath = window.location.pathname;
 export default function BookingConfirmation() {
+  const refresh = useLiveRefresh();
+  const [refreshError, setRefreshError] = useState("");
   const [booking, setBooking] = useState<SavedBooking>(),
     [error, setError] = useState(""),
     [retry, setRetry] = useState(0),
@@ -94,12 +97,19 @@ export default function BookingConfirmation() {
             body.error?.message || "Booking could not be loaded.",
           );
         setBooking(body.booking);
+        setRefreshError("");
       })
       .catch((e) => {
-        if (e.name !== "AbortError") setError(e.message);
+        if (e.name !== "AbortError") {
+          if (booking)
+            setRefreshError(
+              "Updates could not be loaded. Retrying automatically.",
+            );
+          else setError(e.message);
+        }
       });
     return () => controller.abort();
-  }, [retry]);
+  }, [retry, refresh]);
   return (
     <div className="published-shell">
       <header>
@@ -110,6 +120,7 @@ export default function BookingConfirmation() {
         <span>Private booking</span>
       </header>
       <main className="confirmation-main">
+        {refreshError && <p role="status">{refreshError}</p>}
         {error ? (
           <section className="event-card">
             <h1>Booking unavailable</h1>

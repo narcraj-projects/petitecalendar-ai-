@@ -6,6 +6,7 @@ import "./bookings.css";
 import CalendarDelivery from "./components/CalendarDelivery";
 import EmailDelivery from "./components/EmailDelivery";
 import BookingManagement from "./components/BookingManagement";
+import { useLiveRefresh } from "./useLiveRefresh";
 export default function BookingsDashboard({
   profile,
   request,
@@ -15,6 +16,8 @@ export default function BookingsDashboard({
   request: (url: string, options?: RequestInit) => Promise<any>;
   signOut: () => void;
 }) {
+  const refresh = useLiveRefresh();
+  const [refreshError, setRefreshError] = useState("");
   const [month, setMonth] = useState(
     new Date(new Date().getFullYear(), new Date().getMonth(), 1),
   );
@@ -35,7 +38,7 @@ export default function BookingsDashboard({
     [filter, setFilter] = useState("upcoming");
   useEffect(() => {
     let active = true;
-    setLoading(true);
+    if (!data) setLoading(true);
     setError("");
     const end = new Date(month.getFullYear(), month.getMonth() + 1, 1);
     const q = new URLSearchParams({
@@ -44,10 +47,19 @@ export default function BookingsDashboard({
     });
     request(`/api/me/bookings?${q}`)
       .then((d) => {
-        if (active) setData(d);
+        if (active) {
+          setData(d);
+          setRefreshError("");
+        }
       })
       .catch((e) => {
-        if (active) setError(e.message);
+        if (active) {
+          if (data)
+            setRefreshError(
+              "Updates could not be loaded. Retrying automatically.",
+            );
+          else setError(e.message);
+        }
       })
       .finally(() => {
         if (active) setLoading(false);
@@ -55,7 +67,7 @@ export default function BookingsDashboard({
     return () => {
       active = false;
     };
-  }, [month, retry]);
+  }, [month, retry, refresh]);
   const zone = data?.schedule?.timezone || profile.timezone;
   const now = new Date();
   const localKey = (d: Date) =>
@@ -88,6 +100,7 @@ export default function BookingsDashboard({
     <div className="events-shell">
       <HostNavigation current="bookings" profile={profile} signOut={signOut} />
       <main className="events-main">
+        {refreshError && <p role="status">{refreshError}</p>}
         <div className="bookings-title">
           <h1>Bookings</h1>
           <a className="event-secondary" href="/app/event-types">

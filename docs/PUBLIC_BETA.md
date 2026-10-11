@@ -10,6 +10,10 @@ On 11 October 2026 the user confirmed receipt of a booking email after configuri
 
 The existing Railway environment and isolated Supabase project are being used for the public weekend release. This does not create a separate production environment or migrate development bookings. The website still uses its Railway address; `petcalendar-ai.ink` is configured for sending email.
 
+The homepage separates **Start hosting / Host sign in** from **Book as a guest**. Guests can paste the host's booking link or open it directly. They do not create an account: after choosing a slot and confirming their current timezone, they enter their own name and email before confirming the booking. The example availability demo is not the homepage or a real booking page.
+
+Booking-dependent screens refresh automatically while visible and online, every 15 seconds and when the user returns to the tab or reconnects. Same-browser booking changes also notify other tabs without sharing contact details or private capabilities. This updates host booking lists and Focus Guard counts, public slots, and invitee confirmation/delivery status. Refresh preserves the selected duration and contact draft; a selected slot that becomes unavailable is cleared. Background failures keep the last view and show a retry notice. Final reservation still rechecks availability on the server.
+
 `STAGING_PRIVATE=false` removes the shared password challenge. Host APIs still require a verified Supabase token, and booking management still requires its private capability. The worker has no public domain. No provider secrets or database credentials are exposed by this setting.
 
 ## Google access

@@ -336,9 +336,10 @@ test("dashboard filters month and past bookings, keeps weekly focus counts, supp
   });
   fail = true;
   await page.getByRole("button", { name: "Refresh", exact: true }).click();
-  await expect(page.getByRole("alert")).toContainText(
-    "Bookings could not be loaded",
+  await expect(page.getByRole("status")).toContainText(
+    "Updates could not be loaded. Retrying automatically.",
   );
+  await expect(page.locator(".booking-row")).toHaveCount(1);
   fail = false;
   await page.getByRole("button", { name: "Refresh", exact: true }).click();
   await expect(page.locator(".booking-row")).toHaveCount(1);

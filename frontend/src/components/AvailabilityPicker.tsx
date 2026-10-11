@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, Globe, X } from "lucide-react";
 import "../availability.css";
 import BookingForm from "./BookingForm";
 import "../bookings.css";
+import { useLiveRefresh } from "../useLiveRefresh";
 type Slot = { start: string; end: string; date: string; recommended?: boolean };
 const dateKey = (d: Date) =>
   `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
@@ -50,6 +51,9 @@ export default function AvailabilityPicker({
   onSelect?: (start: string, timezone: string) => void;
   request?: (url: string, options?: RequestInit) => Promise<any>;
 }) {
+  const refresh = useLiveRefresh();
+  const requestContext = useRef("");
+  const selection = useRef<Slot | undefined>(undefined);
   const device = Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
   const [zone, setZone] = useState(device),
     [source, setSource] = useState<"device" | "chosen">("device");
@@ -67,15 +71,21 @@ export default function AvailabilityPicker({
   const [review, setReview] = useState(false),
     [confirmed, setConfirmed] = useState(false);
   const [calendarStatus, setCalendarStatus] = useState("not_connected");
+  selection.current = selected;
   const dialog = useRef<HTMLDialogElement>(null),
     zoneInput = useRef<HTMLSelectElement>(null);
   useEffect(() => {
     const controller = new AbortController();
-    setLoading(true);
-    setError("");
-    setSlots([]);
-    setSelected(undefined);
-    setReview(false);
+    const context = `${endpoint}:${month.toISOString()}:${zone}:${duration}`;
+    const background = requestContext.current === context;
+    requestContext.current = context;
+    if (!background) {
+      setLoading(true);
+      setError("");
+      setSlots([]);
+      setSelected(undefined);
+      setReview(false);
+    }
     const query = new URLSearchParams({
       start_date: dateKey(month),
       end_date: dateKey(new Date(month.getFullYear(), month.getMonth() + 1, 0)),
@@ -98,6 +108,21 @@ export default function AvailabilityPicker({
             body.error?.message || "Available times could not be loaded.",
           );
         setSlots(body.slots);
+        setError("");
+        const chosen = selection.current;
+        if (
+          background &&
+          chosen &&
+          !body.slots.some(
+            (s: Slot) => s.start === chosen.start && s.end === chosen.end,
+          )
+        ) {
+          setSelected(undefined);
+          setReview(false);
+          setNotice(
+            "Your selected time is no longer available. Choose another time.",
+          );
+        }
         setCalendarStatus(body.calendar_status || "not_connected");
         setExplanations(body.explanations || []);
         setDay((previous) =>
@@ -109,12 +134,16 @@ export default function AvailabilityPicker({
       })
       .catch((e) => {
         if (e.name !== "AbortError") {
-          setError(e.message);
+          if (background && slots.length)
+            setNotice(
+              "Availability could not refresh. Retrying automatically; your time will be checked before confirmation.",
+            );
+          else setError(e.message);
           setLoading(false);
         }
       });
     return () => controller.abort();
-  }, [month, zone, duration, retry, endpoint]);
+  }, [month, zone, duration, retry, endpoint, refresh]);
   useEffect(() => {
     if (review) dialog.current?.showModal();
     else dialog.current?.close();

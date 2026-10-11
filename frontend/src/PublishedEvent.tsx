@@ -5,6 +5,7 @@ import AvailabilityPicker from "./components/AvailabilityPicker";
 import AssistantPanel from "./components/AssistantPanel";
 import { BookingContactProvider } from "./components/BookingContact";
 import "./events.css";
+import { useLiveRefresh } from "./useLiveRefresh";
 type PublicEvent = {
   title: string;
   description: string;
@@ -30,9 +31,11 @@ export default function PublishedEvent() {
   );
 }
 function PublishedEventContent() {
+  const refresh = useLiveRefresh();
   const [event, setEvent] = useState<PublicEvent>();
   const [duration, setDuration] = useState(0);
   const [error, setError] = useState("");
+  const [refreshError, setRefreshError] = useState("");
   useEffect(() => {
     const controller = new AbortController();
     fetch("/api/public/events" + window.location.pathname, {
@@ -45,13 +48,23 @@ function PublishedEventContent() {
             body.error?.message || "This event is not available.",
           );
         setEvent(body);
-        setDuration(body.default_duration);
+        setError("");
+        setRefreshError("");
+        setDuration((current) =>
+          body.durations.includes(current) ? current : body.default_duration,
+        );
       })
       .catch((e) => {
-        if (e.name !== "AbortError") setError(e.message);
+        if (e.name !== "AbortError") {
+          if (event)
+            setRefreshError(
+              "Event details could not refresh. Retrying automatically.",
+            );
+          else setError(e.message);
+        }
       });
     return () => controller.abort();
-  }, []);
+  }, [refresh]);
   return (
     <div className="published-shell">
       <header>
@@ -62,6 +75,7 @@ function PublishedEventContent() {
         <span>Event details</span>
       </header>
       <main>
+        {refreshError && <p role="status">{refreshError}</p>}
         {error ? (
           <section className="event-card">
             <h1>This event is not available.</h1>

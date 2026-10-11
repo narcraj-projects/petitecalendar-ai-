@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { bookingTime, type SavedBooking } from "../BookingConfirmation";
 import AvailabilityPicker from "./AvailabilityPicker";
 import AssistantPanel from "./AssistantPanel";
+import { notifyBookingChanged } from "../useLiveRefresh";
 
 type Command = {
   action: string;
@@ -93,6 +94,7 @@ export default function BookingManagement({
       setMode("");
       setChoices([]);
       onSaved(data.booking);
+      notifyBookingChanged();
       setMessage(
         originalAction === "reschedule" &&
           data.booking.change_request?.status === "pending"

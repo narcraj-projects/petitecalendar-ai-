@@ -54,6 +54,8 @@ Sign in → review name, username and timezone → save profile → create an ev
 
 Open the published link → choose duration and date, or ask the assistant → select a valid slot → confirm current timezone → supply contact details or review authenticated prefill → confirm → open the private booking page. The database reservation is immediate; Meet and email delivery can finish later.
 
+Guests need no login. They may open the shared link directly or paste it into the homepage's guest entry. Visible, online booking screens update every 15 seconds and on tab return/reconnection; same-browser successful actions notify other tabs. Public slots, host lists/Focus Guard counts and private booking/delivery states refresh while preserving contact drafts. If another guest takes a selected slot, selection clears and a notice asks for another time.
+
 ### Booking changes
 
 Open the private link or host dashboard → choose cancellation or replacement times → review policy and details → explicitly submit. An approval request keeps the original time occupied until the host approves a freshly available alternative. Decline or withdrawal leaves the original reservation intact.

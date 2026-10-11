@@ -6,8 +6,30 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import "./home.css";
+import { useState, type FormEvent } from "react";
 
 export default function Home() {
+  const [link, setLink] = useState("");
+  const [error, setError] = useState("");
+  function openBooking(event: FormEvent) {
+    event.preventDefault();
+    try {
+      const url = new URL(link.trim(), window.location.origin);
+      const parts = url.pathname.split("/").filter(Boolean);
+      if (
+        url.origin !== window.location.origin ||
+        parts.length !== 2 ||
+        ["api", "app", "auth", "assets", "booking", "ananya"].includes(
+          parts[0],
+        ) ||
+        !parts.every((part) => /^[a-z0-9_-]+$/i.test(part))
+      )
+        throw new Error();
+      window.location.assign(url.pathname);
+    } catch {
+      setError("Paste the PetCalendar AI booking link shared by your host.");
+    }
+  }
   return (
     <div className="home-shell">
       <header className="home-header">
@@ -16,7 +38,7 @@ export default function Home() {
           PetCalendar AI
         </a>
         <a className="home-signin" href="/login">
-          Sign in <ArrowRight size={18} />
+          Host sign in <ArrowRight size={18} />
         </a>
       </header>
       <main className="home-main">
@@ -28,12 +50,39 @@ export default function Home() {
             time with help from your scheduling assistant.
           </p>
           <a className="home-primary" href="/login">
-            Get started <ArrowRight size={20} />
+            Start hosting <ArrowRight size={20} />
           </a>
           <p className="home-invite">
             Booking a meeting? Open the booking link shared by your host. You
             can choose a time without creating an account.
           </p>
+        </section>
+        <section className="home-guest" aria-labelledby="guest-heading">
+          <h2 id="guest-heading">Book as a guest</h2>
+          <p>
+            No sign-in needed. Open your host’s booking link, choose a time, and
+            enter your own name and email before confirming.
+          </p>
+          <form onSubmit={openBooking}>
+            <label htmlFor="guest-link">Booking link from your host</label>
+            <div className="home-guest-input">
+              <input
+                id="guest-link"
+                type="text"
+                value={link}
+                onChange={(event) => {
+                  setLink(event.target.value);
+                  setError("");
+                }}
+                placeholder="Paste your host’s booking link"
+                required
+              />
+              <button className="home-primary" type="submit">
+                Open booking page <ArrowRight size={18} />
+              </button>
+            </div>
+            {error && <p role="alert">{error}</p>}
+          </form>
         </section>
         <section className="home-features" aria-label="Scheduling features">
           <article>

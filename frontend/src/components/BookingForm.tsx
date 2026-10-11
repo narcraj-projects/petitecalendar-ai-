@@ -1,5 +1,6 @@
 import { useId, useRef, useState } from "react";
 import { useBookingContact } from "./BookingContact";
+import { notifyBookingChanged } from "../useLiveRefresh";
 export default function BookingForm({
   endpoint,
   start,
@@ -71,6 +72,7 @@ export default function BookingForm({
             "Booking could not be verified. Retry with these details.",
         );
       }
+      notifyBookingChanged();
       window.location.assign(
         `/booking/${body.booking.id}#${pending.current.capability}`,
       );
