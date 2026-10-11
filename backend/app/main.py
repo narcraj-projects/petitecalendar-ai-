@@ -22,8 +22,10 @@ from app.demo import RULES, get_demo_occupancy
 from app.domain.availability import get_available_slots
 from app.services.availability import public_slots
 from app.services.calendar import get_calendar_service
+from app.staging import StagingAccessMiddleware
 
 app = FastAPI(title="PetCalendar AI", version="0.1.0")
+app.add_middleware(StagingAccessMiddleware)
 app.include_router(hosts_router)
 app.include_router(events_router)
 app.include_router(availability_router)

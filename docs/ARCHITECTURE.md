@@ -58,6 +58,8 @@ The agent and conventional UI use the same services. The pure engine accepts con
 
 Serve the compiled frontend and API behind one origin, initially from FastAPI. Run the worker separately using the same Python package. Use separate development, staging and production Supabase projects with API and worker near the database. Choose hosting and backup settings at deployment; no services are provisioned by this proposal.
 
+Private staging adds an application access gate before routing, independent of Supabase host authorization. HTTPS, a strong access password and encryption key are required; invalid configuration denies access. The health endpoint remains available to the hosting platform. A successful browser challenge creates a short-lived encrypted Secure/HttpOnly cookie so normal bearer authentication and browser OAuth callbacks still work. This gate is only for restricted staging review.
+
 ## Data model
 
 | Entity group | Responsibility |

@@ -116,3 +116,5 @@ The user accepted proceeding after the private GitHub handoff. Prepare a locked 
 ### Step 10 spending constraint
 
 The user authorized a combined USD 20 monthly maximum, including fees. Plan USD 10 Railway, USD 3 OpenAI, free Supabase/Resend and USD 7 reserve. Account cutoffs and a dedicated AI project must be verified before provisioning. AI defaults off with explicit provider spending-limit fallback. Do not upgrade plans or increase caps without approval; interruption is acceptable at the boundary. See the spending section in [staging setup](STAGING_SETUP.md).
+
+Railway CLI authentication and the USD 10 compute cutoff/USD 7 alert were verified; the Railway Agent is disabled. An isolated staging Supabase connection was verified. An application staging access gate protects pages, assets and APIs with an encrypted eight-hour browser session and fails closed on invalid configuration. Hosted deployment builds from private GitHub, with separate restricted runtime database logins. Live deployment and end-to-end acceptance remain pending.

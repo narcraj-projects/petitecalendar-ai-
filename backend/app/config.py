@@ -20,6 +20,8 @@ class Settings:
     resend_api_key: str = ""
     email_from: str = ""
     ai_enabled: bool = False
+    staging_private: bool = False
+    staging_access_password: str = ""
     openai_api_key: str = ""
     openai_model: str = "gpt-6-astra"
 
@@ -60,6 +62,8 @@ def get_settings() -> Settings:
         resend_api_key=os.getenv("RESEND_API_KEY", "").strip(),
         email_from=os.getenv("EMAIL_FROM", "").strip(),
         ai_enabled=os.getenv("AI_ENABLED", "false").strip().lower() == "true",
+        staging_private=os.getenv("STAGING_PRIVATE", "false").strip().lower() == "true",
+        staging_access_password=os.getenv("STAGING_ACCESS_PASSWORD", ""),
         openai_api_key=os.getenv("OPENAI_API_KEY", "").strip(),
         openai_model=os.getenv("OPENAI_MODEL", "gpt-6-astra").strip(),
     )

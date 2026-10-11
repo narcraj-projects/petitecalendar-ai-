@@ -1,6 +1,6 @@
 # PetCalendar AI staging setup
 
-This is deployment preparation. No hosting account, online environment or paid service has been created. The user has no hosting account yet. Private source on GitHub does not make a deployed booking page private.
+Step 10 is in progress. Railway CLI authentication and the workspace USD 10 compute cutoff, USD 7 alert and disabled Railway Agent were verified. An empty `petcalendar-ai-staging` project has been created. A separate staging Supabase database connection was verified; hosted deployment and live acceptance remain pending. Private source on GitHub does not make a deployed booking page private.
 
 ## Package and configuration
 
@@ -27,6 +27,10 @@ docker compose -f compose.staging.yaml ps
 `.env.staging.migrations` needs only the staging migration `DATABASE_URL`; it is ignored by Git. The web health check verifies process responsiveness, not database/provider readiness. The worker has no HTTP health check; inspect job progress and failed/uncertain statuses during acceptance. Container restarts use existing durable job leases. Keep one web process and one replica while assistant limits remain process-local. Do not run a second worker against the development database while its local worker is running.
 
 For hosted deployment, configure one web service on container port 8017 and one continuously running worker using `python -m app.worker`. Run migrations once before starting delivery. Put the web service behind HTTPS and a private network or access gateway allowing only test users; a secret-looking hostname is not access control. Its OAuth callback must remain accessible to the signed-in browser. Hosting selection, price, ingress privacy and secrets configuration must be reviewed before creating services.
+
+The application now provides an additional staging gate: set `STAGING_PRIVATE=true`, an HTTPS `APP_BASE_URL`, a `STAGING_ACCESS_PASSWORD` of at least 20 characters, and a valid `TOKEN_ENCRYPTION_KEY`. The browser prompts for username `staging` and that password; successful access issues an encrypted, Secure, HttpOnly, SameSite=Lax cookie lasting eight hours. Normal Supabase authentication remains required for host actions. All pages, assets and APIs are gated except `/api/health`; missing or invalid gate configuration fails closed. Password changes invalidate existing gate sessions. Keep the generated password in the ignored local staging file and share it only with authorized reviewers. Never enter it in chat or commit it.
+
+Railway builds from the private GitHub repository. The local CLI configures and verifies services; do not upload the desktop workspace with `railway up`. Upload only staging secrets to the provider, with separate restricted web/worker database logins; keep the privileged migration login local.
 
 ## Acceptance and rollback
 
