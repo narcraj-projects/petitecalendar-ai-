@@ -14,7 +14,6 @@ from app.api.availability import router as availability_router
 from app.api.bookings import router as bookings_router
 from app.api.calendar import router as calendar_router
 from app.api.events import router as events_router
-from app.api.guest_history import router as guest_history_router
 from app.api.hosts import router as hosts_router
 from app.api.invitations import router as invitations_router
 from app.db.availability import get_schedule_repository
@@ -35,7 +34,6 @@ app.include_router(bookings_router)
 app.include_router(calendar_router)
 app.include_router(assistant_router)
 app.include_router(invitations_router)
-app.include_router(guest_history_router)
 
 
 @app.middleware("http")
@@ -45,7 +43,6 @@ async def private_response_headers(request: Request, call_next):
     if request.url.path.startswith(
         (
             "/api/me",
-            "/api/guest",
             "/api/auth",
             "/auth/",
             "/api/public/events",
@@ -235,7 +232,6 @@ if DIST.is_dir():
     @app.get("/app/availability")
     @app.get("/app/bookings")
     @app.get("/app/integrations")
-    @app.get("/guest/bookings")
     @app.get("/booking/{booking_id}")
     def frontend():
         return FileResponse(DIST / "index.html")

@@ -75,13 +75,8 @@ export default function HostApp() {
         );
         unsubscribe = () => data.subscription.unsubscribe();
         if (path !== "/login" && !s) window.location.replace("/login");
-        if (path === "/auth/callback" && s) {
-          const guest =
-            callback.get("next") === "guest" ||
-            sessionStorage.getItem("petcalendar:auth-destination") === "guest";
-          sessionStorage.removeItem("petcalendar:auth-destination");
-          window.location.replace(guest ? "/guest/bookings" : "/onboarding");
-        }
+        if (path === "/auth/callback" && s)
+          window.location.replace("/onboarding");
         if (path === "/login" && s) window.location.replace("/app/profile");
       })
       .catch((e) => {
@@ -144,7 +139,6 @@ export default function HostApp() {
     setError("");
     setNotice("");
     try {
-      sessionStorage.removeItem("petcalendar:auth-destination");
       const redirectTo = `${window.location.origin}/auth/callback`;
       const result =
         kind === "google"

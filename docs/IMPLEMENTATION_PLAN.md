@@ -1,11 +1,5 @@
 # PetiteCalendar-ai implementation plan
 
-## Current increment — approved hosted release
-
-On 12 October 2026 the user requested host new-booking notifications and a guest historical-booking dashboard, chose email magic links, and required review before pushing code to production. The user reviewed the implementation and approved deployment plus the public-repository code update. Migration `0010_host_guest` passed a rollback-only development check, then was applied to hosted storage after approval. Restricted runtime roles passed read-only checks. Deployment and live SMTP acceptance follow the approved push; PDF artifacts remain local.
-
-Complete the local privacy, independent retry and responsive UI checks; present [the review](reviews/11-host-notifications-guest-history.md). After explicit approval, verify Supabase custom SMTP/callback configuration, apply the migration using privileged migration credentials, deploy web and worker from the reviewed commit, then check one guest and host inbox plus a verified guest-history session. Do not backfill old host notifications or enable paid services.
-
 Build one functionality, verify and demonstrate it, then stop for user review before advancing. Use the Python, Supabase and agent architecture in [ARCHITECTURE.md](ARCHITECTURE.md), and the Midnight adaptations in [DESIGN_ADAPTATION.md](DESIGN_ADAPTATION.md). Changes requested during review stay within the current functionality.
 
 ## Core functionality sequence

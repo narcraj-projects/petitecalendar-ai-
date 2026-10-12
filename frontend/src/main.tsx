@@ -6,24 +6,21 @@ import PublishedEvent from "./PublishedEvent";
 import BookingConfirmation from "./BookingConfirmation";
 import "./styles.css";
 const HostApp = lazy(() => import("./HostApp"));
-const GuestDashboard = lazy(() => import("./GuestDashboard"));
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Suspense fallback={<p role="status">Loading PetiteCalendar-ai…</p>}>
-      {window.location.pathname === "/guest/bookings" ? (
-        <GuestDashboard />
-      ) : [
-          "/login",
-          "/auth/callback",
-          "/onboarding",
-          "/app",
-          "/app/profile",
-          "/app/availability",
-          "/app/bookings",
-          "/app/integrations",
-        ].includes(window.location.pathname) ||
-        window.location.pathname.startsWith("/app/event-types") ? (
+      {[
+        "/login",
+        "/auth/callback",
+        "/onboarding",
+        "/app",
+        "/app/profile",
+        "/app/availability",
+        "/app/bookings",
+        "/app/integrations",
+      ].includes(window.location.pathname) ||
+      window.location.pathname.startsWith("/app/event-types") ? (
         <HostApp />
       ) : window.location.pathname.startsWith("/booking/") ? (
         <BookingConfirmation />

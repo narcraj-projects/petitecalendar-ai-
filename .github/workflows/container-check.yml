@@ -14,7 +14,7 @@ jobs:
       - name: Build locked runtime image
         run: docker build -t petcalendar-ai:check .
       - name: Verify worker imports
-        run: docker run --rm --entrypoint python petcalendar-ai:check -c "import app.worker; import app.email_worker; import app.host_email_worker; import app.guest_auth"
+        run: docker run --rm --entrypoint python petcalendar-ai:check -c "import app.worker; import app.email_worker"
       - name: Verify non-root web startup and assets
         shell: bash
         run: |

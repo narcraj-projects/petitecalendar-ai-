@@ -2,7 +2,6 @@ import { test, expect, type Page } from "@playwright/test";
 
 test("Google sign-in uses PKCE and the local app callback", async ({
   page,
-  baseURL,
 }) => {
   await mockConfig(page);
   await page.route(
@@ -19,7 +18,7 @@ test("Google sign-in uses PKCE and the local app callback", async ({
   const url = new URL(page.url());
   expect(url.searchParams.get("provider")).toBe("google");
   expect(url.searchParams.get("redirect_to")).toBe(
-    new URL("/auth/callback", baseURL).href,
+    "http://127.0.0.1:8017/auth/callback",
   );
   expect(url.searchParams.get("code_challenge")).toBeTruthy();
 });

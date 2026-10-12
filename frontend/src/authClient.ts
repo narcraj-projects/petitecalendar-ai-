@@ -10,7 +10,7 @@ export function getAuthClient() {
       );
     const config = await response.json();
     if (!config.configured)
-      throw new Error("Sign-in is awaiting Supabase configuration.");
+      throw new Error("Host sign-in is awaiting Supabase configuration.");
     const { createClient } = await import("@supabase/supabase-js");
     return createClient(config.supabase_url, config.publishable_key, {
       auth: {

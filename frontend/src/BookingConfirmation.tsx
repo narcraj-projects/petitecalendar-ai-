@@ -28,7 +28,6 @@ export type SavedBooking = {
   };
   calendar_status: string;
   email_status: string;
-  host_email_status?: string;
   meet_url?: string | null;
   change_request?: {
     id: string;

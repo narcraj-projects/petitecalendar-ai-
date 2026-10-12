@@ -190,8 +190,6 @@ class CalendarWorker:
 
 
 def main():
-    from app.host_email_worker import HostEmailWorker
-
     parser = argparse.ArgumentParser()
     parser.add_argument("--once", action="store_true")
     parser.add_argument("--calendar-only", action="store_true")
@@ -201,7 +199,6 @@ def main():
         EmailWorker() if worker.settings.email_configured and not args.calendar_only else None
     )
     invitation_worker = InvitationWorker() if email_worker else None
-    host_email_worker = HostEmailWorker() if email_worker else None
     try:
         while True:
             try:
@@ -210,8 +207,6 @@ def main():
                     worked = email_worker.run_once() or worked
                 if invitation_worker:
                     worked = invitation_worker.run_once() or worked
-                if host_email_worker:
-                    worked = host_email_worker.run_once() or worked
             except SQLAlchemyError:
                 worked = False
                 print("Calendar worker: storage unavailable; retrying.", flush=True)
@@ -224,8 +219,6 @@ def main():
             email_worker.provider.close()
         if invitation_worker:
             invitation_worker.provider.close()
-        if host_email_worker:
-            host_email_worker.provider.close()
 
 
 if __name__ == "__main__":

@@ -1,25 +1,5 @@
 # PetiteCalendar-ai high level system design
 
-## Approved additions — 12 October 2026
-
-This flow passed local checks and user review on 12 October 2026. The hosted schema is migrated; code release and live SMTP acceptance are separate verification steps.
-
-```mermaid
-flowchart LR
-    Guest[Guest] -->|Request and open email magic link| Auth[Supabase Auth]
-    Auth -->|SMTP delivery| Resend[Existing Resend account]
-    Guest -->|Bearer session| History[Guest history API]
-    History -->|JWT and current confirmed email| Auth
-    History -->|Verified email scope and RLS| DB[Supabase PostgreSQL]
-    Booking[Reservation transaction] -->|Atomic independent jobs| DB
-    Worker[Existing private worker] -->|Lease host and invitee jobs separately| DB
-    Worker -->|Separate transactional messages| Resend
-    Resend --> Host[Host inbox]
-    Resend --> GuestInbox[Guest inbox]
-```
-
-Ordinary guest booking remains unauthenticated. History requires inbox verification and does not expose other guests or management secrets. This increment creates no new hosting service. Deployment is approved; live SMTP delivery remains an acceptance step.
-
 Version 1.2, 11 October 2026. This is the current system design for the functionality in [the specification](SPEC.md). The existing Railway environment is open for a user-approved public weekend release. The optional staging gate is disabled; host and booking authorization remain active. Google OAuth is still in Testing. Future integrations from the original kit are excluded from these diagrams.
 
 ## System context

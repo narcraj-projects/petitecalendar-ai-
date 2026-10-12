@@ -58,7 +58,7 @@ test("connect starts separate consent without putting tokens in navigation", asy
   await page.route("**/api/me/integrations/google", r => r.fulfill({json: {configured: true, connection: empty, calendars: []}}));
   await page.route("**/api/me/integrations/google/connect", r => {
     expect(r.request().method()).toBe("POST");
-    return r.fulfill({json: {authorization_url: new URL("/test-google-consent", page.url()).href}});
+    return r.fulfill({json: {authorization_url: "http://127.0.0.1:8017/test-google-consent"}});
   });
   await page.route("**/test-google-consent", r => r.fulfill({body: "Synthetic Google consent"}));
   await page.goto("/app/integrations");

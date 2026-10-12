@@ -19,7 +19,7 @@ export default function Home() {
       if (
         url.origin !== window.location.origin ||
         parts.length !== 2 ||
-        ["api", "app", "auth", "assets", "booking", "guest", "ananya"].includes(
+        ["api", "app", "auth", "assets", "booking", "ananya"].includes(
           parts[0],
         ) ||
         !parts.every((part) => /^[a-z0-9_-]+$/i.test(part))
@@ -83,11 +83,6 @@ export default function Home() {
             </div>
             {error && <p role="alert">{error}</p>}
           </form>
-          <p>
-            Already booked?{" "}
-            <a href="/guest/bookings">View your booking history</a> with an
-            email sign-in link.
-          </p>
         </section>
         <section className="home-features" aria-label="Scheduling features">
           <article>
