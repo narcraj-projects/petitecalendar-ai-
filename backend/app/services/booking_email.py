@@ -35,6 +35,9 @@ def confirmation_payload(booking, capability, settings, event_type="booking_conf
     if not booking.get("meet_url"):
         details.append("Open your private booking link for the latest calendar and Meet status.")
     details += [
+        "View your booking history: "
+        + settings.app_base_url.rstrip("/")
+        + "/guest/bookings (verify the email you used to book).",
         "Private booking link: " + link,
         "Keep this link private; it grants booking access.",
     ]

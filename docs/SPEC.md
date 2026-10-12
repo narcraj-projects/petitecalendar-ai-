@@ -1,5 +1,15 @@
 # PetiteCalendar-ai functional specification
 
+## Approved increment — 12 October 2026
+
+The user reviewed and approved these additions for hosted deployment and public-repository publication. Migration `0010_host_guest` is applied; deployed-code and live SMTP acceptance are verified separately:
+
+- A new booking queues separate host and invitee emails in the reservation transaction when email is configured. The host recipient is their verified Supabase account email. The host message includes the guest's name/email, meeting title, duration, both timezones, location/Meet and an authenticated host-dashboard link. Each recipient has independent retries and delivery status. Existing bookings are not backfilled; this increment adds host notifications for new bookings only.
+- Guests can open `/guest/bookings` and verify their booking email through a Supabase magic link. No host profile is required. Booking itself still works without sign-in. Upcoming, Past and Cancelled views show only bookings recorded against that currently verified email, including earlier bookings. Matching ignores email letter case; aliases and different addresses are not merged.
+- History is read-only and paginated. It shows the saved host, event, times, duration, location and available Meet link. It excludes other invitees, host contacts and private management tokens. Management continues through the original private confirmation link. Refresh, visible-page polling and browser-focus updates keep the view current.
+
+Live guest magic-link delivery requires verified custom Supabase SMTP and an allowed callback URL. Provider-double tests do not establish live inbox delivery. See [increment review](reviews/11-host-notifications-guest-history.md).
+
 Version 1.2, 11 October 2026. This specification describes the implemented application and its agreed weekend-project scope. It was derived from the current code and feature reviews; it is not the missing specification referenced by the original design kit.
 
 ## Purpose and users

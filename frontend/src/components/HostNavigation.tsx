@@ -33,6 +33,7 @@ export default function HostNavigation({
         Availability & Focus Guard
       </a>
       <a href="/app/profile">Profile & settings</a>
+      <a href="/guest/bookings">My bookings as a guest</a>
       <a
         href="/app/integrations"
         aria-current={current === "integrations" ? "page" : undefined}

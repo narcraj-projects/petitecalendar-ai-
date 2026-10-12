@@ -13,7 +13,7 @@ from app.auth import failure
 from app.config import get_settings
 from app.db.availability import Availability, ScheduleRepository
 from app.db.calendar import CalendarJob, CalendarRepository, GoogleConnection, connection_stamp
-from app.db.email import EmailJob
+from app.db.email import EmailJob, HostEmailJob
 from app.db.events import EventType
 from app.db.profiles import Base, HostProfile, ProfileRepository
 from app.domain.availability import Interval, Occupancy, get_available_slots
@@ -129,10 +129,21 @@ class BookingRepository(ProfileRepository):
             .all()
         )
         email_lookup = {(j["booking_id"], j["revision"]): j["status"] for j in emails}
+        host_jobs = (
+            c.execute(
+                select(HostEmailJob.booking_id, HostEmailJob.revision, HostEmailJob.status).where(
+                    HostEmailJob.booking_id.in_([r["id"] for r in rows])
+                )
+            )
+            .mappings()
+            .all()
+        )
+        host_email_lookup = {(j["booking_id"], j["revision"]): j["status"] for j in host_jobs}
         result = []
         for row in rows:
             value = booking_view(row)
             value["email_status"] = email_lookup.get((row["id"], row["revision"]), "not_enabled")
+            value["host_email_status"] = host_email_lookup.get((row["id"], 1), "not_enabled")
             job = lookup.get((row["id"], row["revision"]))
             if job:
                 value.update(
@@ -442,6 +453,11 @@ class BookingRepository(ProfileRepository):
                             capability_ciphertext=TokenVault(settings.token_encryption_key).seal(
                                 row["user_id"], body.capability
                             ),
+                        )
+                    )
+                    c.execute(
+                        HostEmailJob.__table__.insert().values(
+                            booking_id=row["id"], revision=row["revision"], user_id=row["user_id"]
                         )
                     )
                 return self._view(c, row)

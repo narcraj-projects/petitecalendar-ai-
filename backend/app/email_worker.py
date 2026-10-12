@@ -18,6 +18,9 @@ from app.services.booking_email import confirmation_payload, payload_text
 
 
 class EmailWorker:
+    job_model = EmailJob
+    job_table = "email_jobs"
+
     def __init__(self, engine=None, provider=None, settings=None):
         self.settings = settings or get_settings()
         self.engine = engine or get_engine(self.settings.database_url)
@@ -31,13 +34,13 @@ class EmailWorker:
             self._role(c)
             row = (
                 c.execute(
-                    text("""WITH candidate AS (
-                SELECT booking_id,revision FROM app_private.email_jobs
+                    text(f"""WITH candidate AS (
+                SELECT booking_id,revision FROM app_private.{self.job_table}
                 WHERE ((status IN ('queued','retry') AND due_at<=now())
                     OR (status='working' AND lease_until<now()))
                     AND (CAST(:host AS uuid) IS NULL OR user_id=CAST(:host AS uuid))
                 ORDER BY due_at FOR UPDATE SKIP LOCKED LIMIT 1
-            ) UPDATE app_private.email_jobs j SET status='working',lease_token=:lease,
+            ) UPDATE app_private.{self.job_table} j SET status='working',lease_token=:lease,
                 lease_until=now()+interval '90 seconds',attempts=attempts+1
                 FROM candidate c WHERE j.booking_id=c.booking_id AND j.revision=c.revision
                 RETURNING j.*"""),
@@ -50,10 +53,10 @@ class EmailWorker:
 
     def _owned(self, job):
         return (
-            EmailJob.booking_id == job["booking_id"],
-            EmailJob.revision == job["revision"],
-            EmailJob.status == "working",
-            EmailJob.lease_token == job["lease_token"],
+            self.job_model.booking_id == job["booking_id"],
+            self.job_model.revision == job["revision"],
+            self.job_model.status == "working",
+            self.job_model.lease_token == job["lease_token"],
         )
 
     def load(self, job):
@@ -99,7 +102,7 @@ class EmailWorker:
         with self.engine.begin() as c:
             self._role(c)
             c.execute(
-                update(EmailJob)
+                update(self.job_model)
                 .where(*self._owned(job))
                 .values(
                     status="retry",
@@ -116,10 +119,10 @@ class EmailWorker:
         with self.engine.begin() as c:
             self._role(c)
             saved = c.execute(
-                update(EmailJob)
-                .where(*self._owned(job), EmailJob.lease_until > func.now())
+                update(self.job_model)
+                .where(*self._owned(job), self.job_model.lease_until > func.now())
                 .values(payload_ciphertext=ciphertext, frozen_at=job["frozen_at"] or now)
-                .returning(EmailJob.booking_id)
+                .returning(self.job_model.booking_id)
             ).first()
         return bool(saved)
 
@@ -151,7 +154,17 @@ class EmailWorker:
             values.update(capability_ciphertext=None, payload_ciphertext=None)
         with self.engine.begin() as c:
             self._role(c)
-            c.execute(update(EmailJob).where(*self._owned(job)).values(**values))
+            c.execute(update(self.job_model).where(*self._owned(job)).values(**values))
+
+    def build_payload(self, booking, job, vault):
+        capability = vault.open(job["user_id"], job["capability_ciphertext"])
+        return confirmation_payload(
+            booking, capability, self.settings, job.get("event_type", "booking_confirmed")
+        )
+
+    def delivery_key(self, job):
+        event_type = job.get("event_type", "booking_confirmed").replace("_", "-")
+        return f"{event_type}/{job['booking_id']}/{job['revision']}"
 
     def run_once(self, host=None):
         job = self.claim(host)
@@ -188,14 +201,9 @@ class EmailWorker:
             if job["payload_ciphertext"]:
                 payload = json.loads(vault.open(job["user_id"], job["payload_ciphertext"]))
             else:
-                capability = vault.open(job["user_id"], job["capability_ciphertext"])
-                payload = confirmation_payload(
-                    booking, capability, self.settings, job.get("event_type", "booking_confirmed")
-                )
+                payload = self.build_payload(booking, job, vault)
             if self.freeze(job, payload, now):
-                event_type = job.get("event_type", "booking_confirmed").replace("_", "-")
-                key = f"{event_type}/{job['booking_id']}/{job['revision']}"
-                self.finish(job, provider_id=self.provider.send(payload, key))
+                self.finish(job, provider_id=self.provider.send(payload, self.delivery_key(job)))
         except EmailError as error:
             self.finish(job, error=error)
         except Exception:

@@ -1,5 +1,37 @@
 # PetiteCalendar-ai low level implementation design
 
+## Local increment: host notification and guest history
+
+These modules passed local checks and user review. The hosted migration `0010_host_guest` is applied and code deployment is approved:
+
+| Module | Responsibility |
+| --- | --- |
+| `guest_auth.py` | Verify signed identity and match the current confirmed Auth email |
+| `api/guest_history.py` | Validate filter/pagination; derive identity server-side |
+| `db/guest_history.py` | Set transaction-local guest scope, use restricted role/RLS, return whitelisted history |
+| `host_email_worker.py` | Independently lease and deliver host jobs using existing durable email behavior |
+| `services/host_notification.py` | Escape host messages and link only to authenticated host management |
+| `frontend/src/GuestDashboard.tsx` | Magic-link entry, filters, paging, refresh and read-only meeting cards |
+
+```mermaid
+sequenceDiagram
+    participant Browser
+    participant API
+    participant Auth as Supabase Auth
+    participant DB as PostgreSQL
+    Browser->>API: GET /api/guest/bookings + bearer token
+    API->>API: Verify JWT signature, issuer, audience and expiry
+    API->>Auth: GET current user with caller bearer
+    Auth-->>API: Current confirmed email and subject
+    API->>API: Match current email and subject to JWT
+    API->>DB: Begin; SET LOCAL ROLE guest; verified email scope
+    API->>DB: Filtered, paginated SELECT under forced RLS
+    DB-->>API: Only this guest's bookings and safe delivery fields
+    API-->>Browser: Whitelisted history; private/no-store
+```
+
+Host-job insertion occurs in the same transaction as the new booking, outbox and invitee job. Both consumers retain revision guards, Meet waiting, encrypted immutable retry payloads, lease recovery and the 23-hour ambiguous-delivery boundary. Host messages never contain the guest's capability. Supabase default SMTP is insufficient for arbitrary guests; custom SMTP readiness must be checked before activation.
+
 Version 1.2, 11 October 2026. This document maps the current code to the [functional specification](SPEC.md) and [high-level design](HIGH_LEVEL_DESIGN.md). The diagrams describe implemented relationships and control flow; they do not add future payment, team or reminder services.
 
 ## Module responsibilities

@@ -16,6 +16,7 @@ RESERVED = {
     "login",
     "onboarding",
     "booking",
+    "guest",
     "docs",
     "admin",
     "support",

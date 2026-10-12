@@ -251,6 +251,15 @@ export default function BookingsDashboard({
                         </button>
                       )}
                       <EmailDelivery status={b.email_status} />
+                      {b.host_email_status &&
+                        b.host_email_status !== "not_enabled" && (
+                          <p>
+                            Host notification:{" "}
+                            {b.host_email_status === "accepted"
+                              ? "accepted by the email service"
+                              : b.host_email_status}
+                          </p>
+                        )}
                     </div>
                     <BookingManagement
                       booking={b}
